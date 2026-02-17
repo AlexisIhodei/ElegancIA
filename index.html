@@ -11,18 +11,18 @@
 <body>
     <header>
         <nav>
-            <a href="#" class="linkLogo">
-                <img src="./assets/logo.png" class="logo" alt="Logo de Allegra">
+            <a href="#" id="linkLogo">
+                <img src="./assets/logo.png" id="logo" alt="Logo de Allegra">
                 <h1>Allegra</h1>
             </a>
-            <ul class="listNav">
+            <ul id="listNav">
                 <li><a href="#">New arrivals</a></li>
                 <li><a href="#">Collections</a></li>
                 <li><a href="#">Women</a></li>
                 <li><a href="#">Men</a></li>
             </ul>
-            <div class="searchBar">
-                <span class="bar">
+            <div id="searchBar">
+                <span id="bar">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -56,7 +56,110 @@
     </header>
 
     <main>
+        <section id="storeBox">
+            <div id="filters">
+                <ul id="listFilters">
+                    <li><a href="#">All products</a></li>
+                    <li><a href="#">Hoodies</a></li>
+                    <li><a href="#">Outerwear</a></li>
+                    <li><a href="#">Accesories</a></li>
+                    <li><a href="#">Footwear</a></li>
+                    <li>
+                        <button>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+                                </svg>
+                            </span>
+                            Filters
+                        </button>
+                    </li>
+                </ul>
 
+            </div>
+
+            <div id="storeContent">
+                <div class="productCart">
+                    <img src="./assets/camisa.png" alt="imagen de una prenda de ropa">
+                    <h2>Oversized Hoodie</h2>
+                    <p>$89.99</p>
+                    <button>Agregar al carrito</button>
+                </div>
+                <div class="productCart">
+                    <img src="./assets/camisa.png" alt="imagen de una prenda de ropa">
+                    <h2>Oversized Hoodie</h2>
+                    <p>$89.99</p>
+                    <button>Agregar al carrito</button>
+                </div>
+                <div class="productCart">
+                    <img src="./assets/camisa.png" alt="imagen de una prenda de ropa">
+                    <h2>Oversized Hoodie</h2>
+                    <p>$89.99</p>
+                    <button>Agregar al carrito</button>
+                </div>
+                <div class="productCart">
+                    <img src="./assets/camisa.png" alt="imagen de una prenda de ropa">
+                    <h2>Oversized Hoodie</h2>
+                    <p>$89.99</p>
+                    <button>Agregar al carrito</button>
+                </div>
+                <div class="productCart">
+                    <img src="./assets/camisa.png" alt="imagen de una prenda de ropa">
+                    <h2>Oversized Hoodie</h2>
+                    <p>$89.99</p>
+                    <button>Agregar al carrito</button>
+                </div>
+                <div class="productCart">
+                    <img src="./assets/camisa.png" alt="imagen de una prenda de ropa">
+                    <h2>Oversized Hoodie</h2>
+                    <p>$89.99</p>
+                    <button>Agregar al carrito</button>
+                </div>
+
+            </div>
+        </section>
+
+        <aside id="chatBox">
+            <div id="titleBoxAi">
+                <img src="./assets/bot.png">
+                <h3>Allegra AI</h3>
+                <p>Precio todo caro</p>
+            </div>
+
+            <div id="contentIa">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta hic iste veritatis eos nesciunt at
+                    voluptas rerum quia dolorum, perspiciatis nam, numquam ducimus ab cupiditate autem et, corporis
+                    velit consequuntur.lore</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta hic iste veritatis eos nesciunt at
+                    voluptas rerum quia dolorum, perspiciatis nam, numquam ducimus ab cupiditate autem et, corporis
+                    velit consequuntur.lore</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta hic iste veritatis eos nesciunt at
+                    voluptas rerum quia dolorum, perspiciatis nam, numquam ducimus ab cupiditate autem et, corporis
+                    velit consequuntur.lore</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta hic iste veritatis eos nesciunt at
+                    voluptas rerum quia dolorum, perspiciatis nam, numquam ducimus ab cupiditate autem et, corporis
+                    velit consequuntur.lore</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta hic iste veritatis eos nesciunt at
+                    voluptas rerum quia dolorum, perspiciatis nam, numquam ducimus ab cupiditate autem et, corporis
+                    velit consequuntur.lore</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta hic iste veritatis eos nesciunt at
+                    voluptas rerum quia dolorum, perspiciatis nam, numquam ducimus ab cupiditate autem et, corporis
+                    velit consequuntur.lore</p>
+            </div>
+
+            <div id="searchInp">
+                <input type="text" name="promt" id="promt">
+                <button id="send">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                    </svg>
+                </button>
+            </div>
+        </aside>
     </main>
 
     <footer>

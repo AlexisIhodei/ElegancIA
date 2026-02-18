@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allegra</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#" id="linkLogo">
+                <img src="./assets/logo.png" id="logo" alt="Logo de Allegra">
+                <h1>Allegra</h1>
+            </a>
+            <ul id="listNav">
+                <li><a href="#storeContent">New arrivals</a></li>
+                <li><a href="#storeContent">Collections</a></li>
+                <li><a href="#storeContent">Women</a></li>
+                <li><a href="#storeContent">Men</a></li>
+            </ul>
+            <div id="searchBar">
+                <span id="bar">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                    <input type="text" name="busqueda" id="busqueda">
+                </span>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                    </svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                    </svg>
+                </a>
+                <a id="profileIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                </a>
+            </div>
+        </nav>
+
+        <dialog id="modal">
+            <h2>Iniciar sesion</h2>
+            <form>
+                <label for="email">Introduzca su email</label>
+                <input type="email" name="email" id="email">
+                <label for="pass">Introduzca su email</label>
+                <input type="password" name="pass" id="pass">
+                <input type="submit" value="Iniciar sesion">
+            </form>
+            <p>O desea registrarse?</p>
+            <button>Registrarse</button>
+            <button id="modalClose">Cerrar</button>
+        </dialog>
+    </header>
+
+    <main id="main">
+        <section id="storeBox">
+            <div id="filters">
+                <ul id="listFilters">
+                    <li id="allProducts"><a href="#">All products</a></li>
+                    <li id="hoodieBtn"><a href="#">Hoodies</a></li>
+                    <li id="outerBtn"><a href="#">Outerwear</a></li>
+                    <li id="accesoriesBtn"><a href="#">Accesories</a></li>
+                    <li id="footwearBtn"><a href="#">Footwear</a></li>
+                    <li>
+                        <button id="btnFilters">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+                                </svg>
+                            </span>
+                            Filters
+                        </button>
+                    </li>
+                    <li>
+                        <button id="btnIa">
+                            <img src="./assets/bot.png" alt="Boton de ia">
+                        </button>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div id="storeContent">
+                <div class="productCart">
+                    <img src="./assets/camisa.png" alt="imagen de una prenda de ropa">
+                    <h2>Oversized Hoodie</h2>
+                    <p>$89.99</p>
+                    <button class="addCart">Agregar al carrito</button>
+                </div>
+                <!-- Mas tarjetas creadas dinamicamente -->
+            </div>
+        </section>
+
+        <aside id="chatBox">
+            <div id="titleBoxAi">
+                <img src="./assets/bot.png">
+                <h3>Allegra AI</h3>
+            </div>
+
+            <div id="contentIa">
+                <p>Descubre con nuestra ia los productos que mas te gusten</p>
+            </div>
+
+            <div id="searchInp">
+                <input type="text" name="promt" id="promtInp">
+                <button id="sendBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                    </svg>
+                </button>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div id="contentFooter">
+            <h3>Allegra</h3>
+            <p>Descubre un espacio donde la moda cobra vida y cada prenda cuenta una historia. Nuestra tienda de ropa es
+                más que un lugar para comprar: es un punto de encuentro para quienes buscan expresar su estilo con
+                autenticidad, confianza y personalidad.</p>
+            <ul id="links">
+                <li><a href="#"><img src="./assets/whats.png" alt=""></a></li>
+                <li><a href="#"><img src="./assets/ig.png" alt=""></a></li>
+                <li><a href="#"><img src="./assets/x.png" alt=""></a></li>
+            </ul>
+            <p>© 2026 Allegra Fashion. All rights reserved</p>
+        </div>
+        <div>
+            <div id="footerLinker">
+                <div class="shopFooter">
+                    <h2>Shop</h2>
+                    <p>New arrivals</p>
+                    <p>Best sellers</p>
+                    <p>Sales</p>
+                </div>
+                <div class="shopFooter">
+                    <h2>Support</h2>
+                    <p>Contact us</p>
+                    <p>Shipping</p>
+                    <p>Returns</p>
+                </div>
+                <div class="shopFooter">
+                    <h2>Newsletter</h2>
+                    <p>Join us</p>
+                    <input type="email" name="email" id="email">
+                    <button>Join</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>

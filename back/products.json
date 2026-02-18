@@ -1,0 +1,92 @@
+[
+    {
+        "id": "H01",
+        "nombre": "Essential Black Hoodie",
+        "precio": 45.00,
+        "img": "img/hoodie.png",
+        "categoria": "Hoodies",
+        "descripcion": "Sudadera con capucha negra básica. Algodón de alto gramaje, interior de felpa suave. Corte 'oversize' perfecto para el día a día.",
+        "stock": true
+    },
+    {
+        "id": "H02",
+        "nombre": "Graphic Print Hoodie",
+        "precio": 55.00,
+        "img": "img/hoodie.png",
+        "categoria": "Hoodies",
+        "descripcion": "Sudadera gris con estampado gráfico retro en la espalda. Estilo urbano y moderno.",
+        "stock": true
+    },
+    {
+        "id": "O01",
+        "nombre": "Technical Windbreaker",
+        "precio": 89.99,
+        "img": "img/hoodie.png",
+        "categoria": "Outerwear",
+        "descripcion": "Chaqueta cortavientos impermeable en color verde militar. Ideal para lluvia ligera y días ventosos.",
+        "stock": true
+    },
+    {
+        "id": "O02",
+        "nombre": "Classic Denim Jacket",
+        "precio": 65.00,
+        "img": "img/hoodie.png",
+        "categoria": "Outerwear",
+        "descripcion": "Cazadora vaquera estilo vintage con borrego en el cuello. Un clásico que nunca pasa de moda.",
+        "stock": false
+    },
+    {
+        "id": "O03",
+        "nombre": "Puffer Vest",
+        "precio": 49.90,
+        "img": "img/hoodie.png",
+        "categoria": "Outerwear",
+        "descripcion": "Chaleco acolchado negro. Perfecto para poner encima de una sudadera en entretiempo.",
+        "stock": true
+    },
+    {
+        "id": "A01",
+        "nombre": "Urban Snapback Cap",
+        "precio": 25.00,
+        "img": "img/hoodie.png",
+        "categoria": "Accesories",
+        "descripcion": "Gorra ajustable con visera plana y logo bordado. Talla única.",
+        "stock": true
+    },
+    {
+        "id": "A02",
+        "nombre": "Crossbody Bag",
+        "precio": 35.00,
+        "img": "img/hoodie.png",
+        "categoria": "Accesories",
+        "descripcion": "Bolso bandolera pequeño y resistente. Ideal para llevar el móvil, llaves y cartera.",
+        "stock": true
+    },
+    {
+        "id": "F01",
+        "nombre": "Retro High-Top Sneakers",
+        "precio": 75.00,
+        "img": "img/hoodie.png",
+        "categoria": "Footwear",
+        "descripcion": "Zapatillas de lona tipo bota en color blanco. Suela de goma vulcanizada. Estilo años 80.",
+        "stock": true
+    },
+    {
+        "id": "F02",
+        "nombre": "Chunky Dad Shoes",
+        "precio": 90.00,
+        "img": "img/hoodie.png",
+        "categoria": "Footwear",
+        "descripcion": "Zapatillas deportivas de suela gruesa y diseño moderno. Muy cómodas para caminar todo el día.",
+        "stock": false
+    },
+    {
+        "id": "F03",
+        "nombre": "Leather Chelsea Boots",
+        "precio": 110.00,
+        "img": "img/hoodie.png",
+        "categoria": "Footwear",
+        "descripcion": "Botines de cuero negro sin cordones. Elegantes y resistentes al agua.",
+        "stock": true
+    }
+]

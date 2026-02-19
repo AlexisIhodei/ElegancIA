@@ -12,7 +12,6 @@ let outerBtn = document.getElementById("outerBtn");
 let accesoriesBtn = document.getElementById("accesoriesBtn");
 let footwearBtn = document.getElementById("footwearBtn");
 
-
 let storeContent = document.getElementById("storeContent");
 let chatBox = document.getElementById("chatBox");
 let contentIa = document.getElementById("contentIa");
@@ -26,15 +25,7 @@ let historialConversacion = [];
 let productosGlobal = [];
 let productosCart = [];
 
-btnIa.addEventListener("click", () => {
-    if (chatBox.style.display === "grid") {
-        chatBox.style.display = "none";
-        main.classList.add("chatClosed");
-    } else {
-        chatBox.style.display = "grid";
-        main.classList.remove("chatClosed");
-    }
-});
+const path = "/Tienda-Allegra-con-ia/front/";
 
 profile.addEventListener("click", () => {
     modal.showModal();
@@ -45,7 +36,25 @@ modalClose.addEventListener("click", () => {
 
 sendBtnAi.addEventListener("click", enviarMensaje);
 
-window.addEventListener("popstate", router);
+document.addEventListener("DOMContentLoaded", async () => {
+    await cargarProductos();
+    mostrarMensajeBienvenida();
+
+    const id = obtenerId();
+    if (id) {
+        renderProducto(id);
+    }
+});
+
+btnIa.addEventListener("click", () => {
+    if (chatBox.style.display === "grid") {
+        chatBox.style.display = "none";
+        main.classList.add("chatClosed");
+    } else {
+        chatBox.style.display = "grid";
+        main.classList.remove("chatClosed");
+    }
+});
 
 async function cargarProductos() {
     try {
@@ -59,10 +68,19 @@ async function cargarProductos() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    cargarProductos();
-    mostrarMensajeBienvenida();
-    generarTarjetas(productosGlobal);
+function obtenerId() {
+    const location = window.location.pathname.replace(path, "");
+    const partes = location.split("/").filter(p => p);
+    return partes.length > 0 ? partes[0] : null;
+}
+
+window.addEventListener("popstate", (event) => {
+    const id = obtenerId();
+    if (id) {
+        renderProducto(id);
+    } else {
+        renderTienda();
+    }
 });
 
 inputPromt.addEventListener("keydown", function (event) {
@@ -87,6 +105,7 @@ clearChatBtn.addEventListener("click", () => {
     historialConversacion = [];
     generarMensaje("Chat reiniciado.", "Bot");
 });
+
 async function enviarMensaje() {
     let mensaje = inputPromt.value.trim();
     inputPromt.value = "";
@@ -116,9 +135,6 @@ async function enviarMensaje() {
         const datos = JSON.parse(text);
         contentIa.removeChild(p);
         let mensajeIa = datos.respuesta || "No se pudo generar el mensaje";
-        if (datos.product_id !== null) {
-            navegar(`/producto/${datos.product_id}`);
-        }
         generarMensaje(mensajeIa, "Bot");
 
         historialConversacion.push({
@@ -144,6 +160,34 @@ function generarMensaje(mensaje, sender) {
     return id;
 }
 
+function renderProducto(id) {
+    const producto = productosGlobal.find(p => p.id == id);
+    document.title = producto ? producto.nombre : "Allegra - Tienda";
+
+    if (!producto) return;
+
+    storeContent.innerHTML = `
+        <button id="volverBtn">Volver</button>
+        <div class="productCart">
+            <img src="${producto.img}"/>
+            <h2>${producto.nombre}</h2>
+            <p>${producto.descripcion || ""}</p>
+            <p>$${producto.precio}</p>
+            <button class="addCart">Agregar al carrito</button>
+        </div>
+    `;
+    const volverBtn = document.getElementById("volverBtn");
+    volverBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        history.replaceState({}, "", path);
+        renderTienda();
+    });
+}
+
+function renderTienda() {
+    generarTarjetas(productosGlobal);
+}
+
 function generarTarjetas(datos) {
     storeContent.innerHTML = "";
     for (let i = 0; i < datos.length; i++) {
@@ -151,10 +195,10 @@ function generarTarjetas(datos) {
 
         const div = document.createElement("div");
         div.className = "productCart";
-        div.dataset = producto.id;
+        div.dataset.id = producto.id;
 
         const img = document.createElement("img");
-        img.src = producto.img;
+        img.src = `/Tienda-Allegra-con-ia` + producto.img;
 
         const h2 = document.createElement("h2");
         h2.innerHTML = producto.nombre;
@@ -166,55 +210,23 @@ function generarTarjetas(datos) {
         btn.classList.add("addCart");
         btn.textContent = "Agregar al carrito";
 
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            productosCart.push(producto);
+            alert("Producto añadido al carrito ", producto.nombre);
+        });
+
         div.appendChild(img);
         div.appendChild(h2);
         div.appendChild(p);
         div.appendChild(btn);
-
-        div.addEventListener("click", () => {
-            navegar(`/producto/${producto.id}`);
+        div.addEventListener("click", (e) => {
+            if (e.target.tagName !== "Button") {
+                const nuevaUrl = path + producto.id;
+                history.pushState({ id: producto.id }, "", nuevaUrl);
+                renderProducto(producto.id);
+            }
         });
         storeContent.appendChild(div);
     }
-}
-
-function navegar(path) {
-    history.pushState({}, "", path);
-    router();
-}
-
-function router() {
-    const path = window.location.pathname;
-    if (path.startsWith("/producto/")) {
-        const id = parseInt(path.split("/")[2]);
-        renderProducto(id);
-    } else {
-        renderTienda();
-    }
-}
-
-function renderProducto(id) {
-    const producto = productosGlobal.find(p => p.id == id);
-
-    if (!producto) return;
-
-    storeContent.innerHTML = `
-        <button id="volverBtn">← Volver</button>
-        <div class="detalleProducto">
-            <img src="${producto.img}" width="300"/>
-            <h2>${producto.nombre}</h2>
-            <p>${producto.descripcion || ""}</p>
-            <p>$${producto.precio}</p>
-            <button class="addCart">Agregar al carrito</button>
-        </div>
-    `;
-
-    document.getElementById("volverBtn").addEventListener("click", () => {
-        navegar("/");
-    });
-}
-
-
-function renderTienda() {
-    generarTarjetas(productosGlobal);
 }

@@ -7,7 +7,6 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 
 
-
 $archivoInventario = './products.json';
 
 $input = json_decode(file_get_contents('php://input'), true);

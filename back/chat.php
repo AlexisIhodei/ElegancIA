@@ -8,7 +8,6 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 
 $archivoInventario = './products.json';
-
 $input = json_decode(file_get_contents('php://input'), true);
 $historialRecibido = $input['historial'] ?? [];
 
@@ -37,7 +36,8 @@ Debes responder SIEMPRE con un único JSON válido con esta estrucutra exacta:
 {
   \"respuesta\": \"string\",
   \"lista\": [\"string\",...] o null,
-  \"product_id\": numero o null
+  \"product_id\": numero o null,
+  \"agregar_al_carrito\": booleano
 }
 
 Reglas ESTRICTAS:
@@ -51,6 +51,7 @@ Reglas ESTRICTAS:
 - NO inventes productos que no estén en el JSON.
 - Lo UNICO que puedes inventar es horarios, lugares donde se encuentra la tienda, cuantos empleados tenemos, envios y costos de envio, colores del producto que tengan relacion con el producto.
 - 'product_id': si el usuario pide VER o MOSTRAR un producto específico, DEBES poner su ID EXACTO (tal cual aparece en el JSON). Si no es un producto específico, usa null.
+- agregar_al_carrito': Si el usuario te pide explícitamente COMPRAR, AÑADIR o METER AL CARRO un producto en específico, pon true y asegúrate de poner el 'product_id' correcto del producto. Si no, pon false.
 - NO envíes HTML ni texto fuera del JSON.
 - NO agregues texto fuera del JSON.
 - NO HTML ni etiquetas.
@@ -137,10 +138,12 @@ if (!$jsonLimpio) {
 $respuesta = isset($jsonLimpio['respuesta']) ? (string) $jsonLimpio['respuesta'] : "Sin respuesta.";
 $lista = isset($jsonLimpio['lista']) && is_array($jsonLimpio['lista']) ? $jsonLimpio['lista'] : null;
 $product_id = isset($jsonLimpio['product_id']) ? $jsonLimpio['product_id'] : null;
+$agregar_al_carrito = isset($jsonLimpio['agregar_al_carrito']) ? (bool) $jsonLimpio['agregar_al_carrito'] : false;
 
 echo json_encode([
     "respuesta" => $respuesta,
     "lista" => $lista,
-    "product_id" => $product_id
+    "product_id" => $product_id,
+    "agregar_al_carrito" => $agregar_al_carrito
 ], JSON_UNESCAPED_UNICODE);
 ?>

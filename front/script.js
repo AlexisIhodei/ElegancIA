@@ -38,8 +38,7 @@ sendBtnAi.addEventListener("click", enviarMensaje);
 
 document.addEventListener("DOMContentLoaded", async () => {
     await cargarProductos();
-    mostrarMensajeBienvenida();
-
+    obtenerSaludoInicial();
     const id = obtenerId();
     if (id) {
         renderProducto(id);
@@ -68,6 +67,36 @@ async function cargarProductos() {
     }
 }
 
+
+async function obtenerSaludoInicial() {
+    try {
+        const respuesta = await fetch("../back/chat.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ historial: [] }),
+        });
+        const datos = await respuesta.json();
+        generarMensaje(datos.respuesta, "Bot");
+        if (datos.lista && Array.isArray(datos.lista)) {
+            let ul = document.createElement("ul");
+            datos.lista.forEach(item => {
+                let li = document.createElement("li");
+                li.textContent = item;
+                ul.appendChild(li);
+            });
+            let divLista = document.createElement("div");
+            divLista.className = "messageBot";
+            divLista.appendChild(ul);
+            contentIa.appendChild(divLista);
+        }
+        historialConversacion.push({
+            role: "assistant",
+            content: datos.respuesta
+        });
+    } catch (error) {
+        console.log("Error saludando al usuario", error);
+    }
+}
 function obtenerId() {
     const location = window.location.pathname.replace(path, "");
     const partes = location.split("/").filter(p => p);
@@ -90,12 +119,6 @@ inputPromt.addEventListener("keydown", function (event) {
     }
 });
 
-function mostrarMensajeBienvenida() {
-    const bienvenida = "¡Hola! Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?";
-    generarMensaje(bienvenida, "Bot");
-    historialConversacion.push({ role: "assistant", content: bienvenida });
-}
-
 function resetChat() {
     contentIa.innerHTML = " ";
 }
@@ -105,6 +128,34 @@ clearChatBtn.addEventListener("click", () => {
     historialConversacion = [];
     generarMensaje("Chat reiniciado.", "Bot");
 });
+
+function generarTarjetaChat(productId) {
+    const producto = productosGlobal.find(p => p.id == productId);
+    if (!producto) {
+        console.error("El backend envió el ID:", productId, "pero no se encontró en productosGlobal.");
+        return;
+    }
+
+    const card = document.createElement("div");
+    card.className = "chatMiniCard messageBot";
+
+    card.innerHTML = `
+        <img src="/Tienda-Allegra-con-ia${producto.img}" />
+        <div class="chatMiniText">
+            <span class="chatMiniTitle">${producto.nombre}</span>
+            <span class="chatMiniPrice">$${producto.precio}</span>
+        </div>
+    `;
+
+    card.addEventListener("click", () => {
+        const nuevaUrl = path + producto.id;
+        history.pushState({ id: producto.id }, "", nuevaUrl);
+        renderProducto(producto.id);
+    });
+
+    contentIa.appendChild(card);
+    contentIa.scrollTop = contentIa.scrollHeight;
+}
 
 async function enviarMensaje() {
     let mensaje = inputPromt.value.trim();
@@ -137,6 +188,28 @@ async function enviarMensaje() {
         let mensajeIa = datos.respuesta || "No se pudo generar el mensaje";
         generarMensaje(mensajeIa, "Bot");
 
+        const pid = (datos.product_id !== null && datos.product_id !== undefined && datos.product_id !== "") ? datos.product_id : null;
+
+        if (pid) {
+            generarTarjetaChat(pid);
+            const nuevaUrl = path + pid;
+            history.pushState({ id: pid }, "", nuevaUrl);
+            renderProducto(pid);
+        }
+
+        if (datos.lista && Array.isArray(datos.lista) && (!datos.product_id || datos.lista.length > 1)) {
+            let ul = document.createElement("ul");
+            datos.lista.forEach(item => {
+                let li = document.createElement("li");
+                li.textContent = item;
+                ul.appendChild(li);
+            });
+            let divLista = document.createElement("div");
+            divLista.className = "messageBot";
+            divLista.appendChild(ul);
+            contentIa.appendChild(divLista);
+        }
+
         historialConversacion.push({
             role: "assistant",
             content: datos.respuesta
@@ -156,7 +229,7 @@ function generarMensaje(mensaje, sender) {
     p.id = id;
     p.innerHTML = `${mensaje}`;
     contentIa.appendChild(p);
-    contentIa.scrollTop = chatBox.scrollHeight;
+    contentIa.scrollTop = contentIa.scrollHeight;
     return id;
 }
 
@@ -173,7 +246,7 @@ function renderProducto(id) {
             <h2>${producto.nombre}</h2>
             <p>${producto.descripcion || ""}</p>
             <p>$${producto.precio}</p>
-            <button class="addCart">Agregar al carrito</button>
+            <button class="addCart">Add to the cart</button>
         </div>
     `;
     const volverBtn = document.getElementById("volverBtn");
@@ -204,11 +277,11 @@ function generarTarjetas(datos) {
         h2.innerHTML = producto.nombre;
 
         const p = document.createElement("p");
-        p.innerHTML = "$" + producto.precio;
+        p.textContent = "$" + producto.precio;
 
         const btn = document.createElement("button");
         btn.classList.add("addCart");
-        btn.textContent = "Agregar al carrito";
+        btn.textContent = "Add to the cart";
 
         btn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -229,4 +302,5 @@ function generarTarjetas(datos) {
         });
         storeContent.appendChild(div);
     }
+
 }

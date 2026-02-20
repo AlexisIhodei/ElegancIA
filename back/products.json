@@ -5,9 +5,25 @@
         "precio": 45.00,
         "img": "../back/img/hoodie.png",
         "categoria": "Hoodies",
-        "url": "TODO",
+        "url": "../H01",
         "descripcion": "Sudadera con capucha negra básica. Algodón de alto gramaje, interior de felpa suave. Corte 'oversize' perfecto para el día a día.",
-        "stock": true
+        "stock": true,
+        "tallas": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Negro"
+        ],
+        "material": "100% Algodón orgánico",
+        "cuidados": "Lavar en frío. No usar secadora.",
+        "etiquetas": [
+            "básico",
+            "invierno",
+            "bestseller"
+        ]
     },
     {
         "id": "H02",
@@ -16,7 +32,23 @@
         "img": "../back/img/printHoddie.png",
         "categoria": "Hoodies",
         "descripcion": "Sudadera gris con estampado gráfico retro en la espalda. Estilo urbano y moderno.",
-        "stock": true
+        "stock": true,
+        "tallas": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Gris",
+            "Blanco"
+        ],
+        "material": "80% Algodón, 20% Poliéster",
+        "cuidados": "Lavar al revés. No planchar sobre el estampado.",
+        "etiquetas": [
+            "nuevo",
+            "estampado",
+            "urbano"
+        ]
     },
     {
         "id": "O01",
@@ -24,8 +56,25 @@
         "precio": 89.99,
         "img": "../back/img/windbreaker.png",
         "categoria": "Outerwear",
+        "url": "../O01",
         "descripcion": "Chaqueta cortavientos impermeable en color verde militar. Ideal para lluvia ligera y días ventosos.",
-        "stock": true
+        "stock": true,
+        "tallas": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Verde Militar"
+        ],
+        "material": "100% Poliéster impermeable",
+        "cuidados": "Lavar a máquina en ciclo suave. No usar lejía.",
+        "etiquetas": [
+            "lluvia",
+            "exterior",
+            "deporte"
+        ]
     },
     {
         "id": "O02",
@@ -33,8 +82,24 @@
         "precio": 65.00,
         "img": "../back/img/jeanJacket.png",
         "categoria": "Outerwear",
+        "url": "../O02",
         "descripcion": "Cazadora vaquera estilo vintage con borrego en el cuello. Un clásico que nunca pasa de moda.",
-        "stock": false
+        "stock": false,
+        "tallas": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Azul Lavado"
+        ],
+        "material": "100% Algodón Denim. Forro: 100% Poliéster",
+        "cuidados": "Lavar con colores oscuros. Secar al aire.",
+        "etiquetas": [
+            "vintage",
+            "clásico",
+            "invierno"
+        ]
     },
     {
         "id": "O03",
@@ -42,8 +107,24 @@
         "precio": 49.90,
         "img": "../back/img/vest.png",
         "categoria": "Outerwear",
+        "url": "../O03",
         "descripcion": "Chaleco acolchado negro. Perfecto para poner encima de una sudadera en entretiempo.",
-        "stock": true
+        "stock": true,
+        "tallas": [
+            "S",
+            "M",
+            "L"
+        ],
+        "colores": [
+            "Negro"
+        ],
+        "material": "100% Poliéster acolchado",
+        "cuidados": "Lavar en seco o ciclo delicado.",
+        "etiquetas": [
+            "básico",
+            "entretiempo",
+            "capas"
+        ]
     },
     {
         "id": "A01",
@@ -51,8 +132,23 @@
         "precio": 25.00,
         "img": "../back/img/cap.png",
         "categoria": "Accesories",
+        "url": "../A01",
         "descripcion": "Gorra ajustable con visera plana y logo bordado. Talla única.",
-        "stock": true
+        "stock": false,
+        "tallas": [
+            "Única"
+        ],
+        "colores": [
+            "Negro",
+            "Gris"
+        ],
+        "material": "Algodón y Poliéster",
+        "cuidados": "Limpiar con paño húmedo. No lavar a máquina.",
+        "etiquetas": [
+            "gorra",
+            "urbano",
+            "accesorio"
+        ]
     },
     {
         "id": "A02",
@@ -60,8 +156,22 @@
         "precio": 35.00,
         "img": "../back/img/bag.png",
         "categoria": "Accesories",
+        "url": "../A02",
         "descripcion": "Bolso bandolera pequeño y resistente. Ideal para llevar el móvil, llaves y cartera.",
-        "stock": true
+        "stock": true,
+        "tallas": [
+            "Única"
+        ],
+        "colores": [
+            "Negro"
+        ],
+        "material": "Nylon resistente al agua",
+        "cuidados": "Limpiar con paño húmedo.",
+        "etiquetas": [
+            "bolso",
+            "práctico",
+            "diario"
+        ]
     },
     {
         "id": "F01",
@@ -69,8 +179,28 @@
         "precio": 75.00,
         "img": "../back/img/snikers.png",
         "categoria": "Footwear",
+        "url": "../F01",
         "descripcion": "Zapatillas de lona tipo bota en color blanco. Suela de goma vulcanizada. Estilo años 80.",
-        "stock": true
+        "stock": true,
+        "tallas": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colores": [
+            "Blanco"
+        ],
+        "material": "Lona de algodón. Suela de goma",
+        "cuidados": "Lavar a mano. Secar a la sombra.",
+        "etiquetas": [
+            "zapatillas",
+            "retro",
+            "casual"
+        ]
     },
     {
         "id": "F02",
@@ -78,8 +208,27 @@
         "precio": 90.00,
         "img": "../back/img/dadShoes.png",
         "categoria": "Footwear",
+        "url": "../F02",
         "descripcion": "Zapatillas deportivas de suela gruesa y diseño moderno. Muy cómodas para caminar todo el día.",
-        "stock": false
+        "stock": false,
+        "tallas": [
+            "39",
+            "40",
+            "41",
+            "42",
+            "43"
+        ],
+        "colores": [
+            "Gris",
+            "Blanco"
+        ],
+        "material": "Malla transpirable y suela sintética",
+        "cuidados": "Limpiar con cepillo suave.",
+        "etiquetas": [
+            "deporte",
+            "tendencia",
+            "comodidad"
+        ]
     },
     {
         "id": "F03",
@@ -87,7 +236,25 @@
         "precio": 110.00,
         "img": "../back/img/leather.png",
         "categoria": "Footwear",
+        "url": "../F03",
         "descripcion": "Botines de cuero negro sin cordones. Elegantes y resistentes al agua.",
-        "stock": true
+        "stock": true,
+        "tallas": [
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colores": [
+            "Negro"
+        ],
+        "material": "100% Cuero auténtico. Tacos de goma",
+        "cuidados": "Limpiar con productos especiales para cuero. Evitar exposición directa al sol al secar.",
+        "etiquetas": [
+            "elegante",
+            "botas",
+            "premium"
+        ]
     }
 ]

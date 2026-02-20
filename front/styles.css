@@ -543,6 +543,55 @@ button svg {
     }
 }
 
+.chatMiniCard {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 75%;
+    padding: 8px 12px;
+    border-radius: 18px;
+    background: #f1f1f1;
+    cursor: pointer;
+    transition: 0.2s ease;
+    border-bottom-left-radius: 5px;
+}
+
+.chatMiniCard:hover {
+    background: #e6e6e6;
+}
+
+.chatMiniCard img {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.chatMiniText {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.chatMiniTitle {
+    font-size: 13px;
+    font-weight: 500;
+    color: #111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatMiniPrice {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    white-space: nowrap;
+}
+
 /* ========== Footer ========== */
 
 footer {

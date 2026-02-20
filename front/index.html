@@ -31,7 +31,7 @@
                     </svg>
                     <input type="text" name="busqueda" id="busqueda">
                 </span>
-                <a href="#">
+                <a id="cartBtn">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -48,7 +48,7 @@
             </div>
         </nav>
 
-        <dialog id="modal">
+        <dialog id="modalLogin">
             <h2>Log In</h2>
             <form>
                 <label for="email">Email</label>
@@ -61,12 +61,27 @@
             <button>Register</button>
             <button id="modalClose">Close</button>
         </dialog>
+
         <dialog id="modalCart">
-            <h2>Carrito de la compra</h2>
+            <div>
+                <img src="./assets/logo.png" alt="Logo of the store">
+                <h2>Cart</h2>
+            </div>
             <div id="cartContent">
                 <!-- Añadir productos dinamicamente -->
             </div>
-            <button id="modalClose">Cerrar</button>
+
+            <div class="cartSummary">
+                <p><span>Subtotal:</span> <span id="cartSubtotal">$0.00</span></p>
+                <p><span>IVA (16%):</span> <span id="cartIva">$0.00</span></p>
+                <h3><span>Total:</span> <span id="cartTotal">$0.00</span></h3>
+                <button class="checkoutBtn">Proceed with the payment</button>
+            </div>
+            <button id="modalCartClose">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>Close</button>
         </dialog>
     </header>
 

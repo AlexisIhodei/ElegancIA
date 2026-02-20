@@ -6,7 +6,7 @@
         "img": "../back/img/hoodie.png",
         "categoria": "Hoodies",
         "url": "../H01",
-        "descripcion": "Sudadera con capucha negra básica. Algodón de alto gramaje, interior de felpa suave. Corte 'oversize' perfecto para el día a día.",
+        "descripcion": "Basic black hoodie. Heavyweight cotton, soft fleece interior. Oversize fit perfect for everyday wear.",
         "stock": true,
         "tallas": [
             "S",
@@ -15,13 +15,13 @@
             "XL"
         ],
         "colores": [
-            "Negro"
+            "Black"
         ],
-        "material": "100% Algodón orgánico",
-        "cuidados": "Lavar en frío. No usar secadora.",
+        "material": "100% Organic cotton",
+        "cuidados": "Wash cold. Do not tumble dry.",
         "etiquetas": [
-            "básico",
-            "invierno",
+            "basic",
+            "winter",
             "bestseller"
         ]
     },
@@ -31,7 +31,7 @@
         "precio": 55.00,
         "img": "../back/img/printHoddie.png",
         "categoria": "Hoodies",
-        "descripcion": "Sudadera gris con estampado gráfico retro en la espalda. Estilo urbano y moderno.",
+        "descripcion": "Gray hoodie with retro graphic print on the back. Urban and modern style.",
         "stock": true,
         "tallas": [
             "M",
@@ -39,15 +39,15 @@
             "XL"
         ],
         "colores": [
-            "Gris",
-            "Blanco"
+            "Gray",
+            "White"
         ],
-        "material": "80% Algodón, 20% Poliéster",
-        "cuidados": "Lavar al revés. No planchar sobre el estampado.",
+        "material": "80% Cotton, 20% Polyester",
+        "cuidados": "Wash inside out. Do not iron over the print.",
         "etiquetas": [
-            "nuevo",
-            "estampado",
-            "urbano"
+            "new",
+            "print",
+            "urban"
         ]
     },
     {
@@ -57,7 +57,7 @@
         "img": "../back/img/windbreaker.png",
         "categoria": "Outerwear",
         "url": "../O01",
-        "descripcion": "Chaqueta cortavientos impermeable en color verde militar. Ideal para lluvia ligera y días ventosos.",
+        "descripcion": "Waterproof windbreaker jacket in military green. Ideal for light rain and windy days.",
         "stock": true,
         "tallas": [
             "S",
@@ -66,14 +66,14 @@
             "XL"
         ],
         "colores": [
-            "Verde Militar"
+            "Military Green"
         ],
-        "material": "100% Poliéster impermeable",
-        "cuidados": "Lavar a máquina en ciclo suave. No usar lejía.",
+        "material": "100% Waterproof polyester",
+        "cuidados": "Machine wash on gentle cycle. Do not use bleach.",
         "etiquetas": [
-            "lluvia",
-            "exterior",
-            "deporte"
+            "rain",
+            "outdoor",
+            "sport"
         ]
     },
     {
@@ -83,7 +83,7 @@
         "img": "../back/img/jeanJacket.png",
         "categoria": "Outerwear",
         "url": "../O02",
-        "descripcion": "Cazadora vaquera estilo vintage con borrego en el cuello. Un clásico que nunca pasa de moda.",
+        "descripcion": "Vintage-style denim jacket with sherpa collar. A classic that never goes out of style.",
         "stock": false,
         "tallas": [
             "M",
@@ -91,14 +91,14 @@
             "XL"
         ],
         "colores": [
-            "Azul Lavado"
+            "Washed Blue"
         ],
-        "material": "100% Algodón Denim. Forro: 100% Poliéster",
-        "cuidados": "Lavar con colores oscuros. Secar al aire.",
+        "material": "100% Cotton denim. Lining: 100% Polyester",
+        "cuidados": "Wash with dark colors. Air dry.",
         "etiquetas": [
             "vintage",
-            "clásico",
-            "invierno"
+            "classic",
+            "winter"
         ]
     },
     {
@@ -108,7 +108,7 @@
         "img": "../back/img/vest.png",
         "categoria": "Outerwear",
         "url": "../O03",
-        "descripcion": "Chaleco acolchado negro. Perfecto para poner encima de una sudadera en entretiempo.",
+        "descripcion": "Black padded vest. Perfect to layer over a hoodie during mid-season.",
         "stock": true,
         "tallas": [
             "S",
@@ -116,14 +116,14 @@
             "L"
         ],
         "colores": [
-            "Negro"
+            "Black"
         ],
-        "material": "100% Poliéster acolchado",
-        "cuidados": "Lavar en seco o ciclo delicado.",
+        "material": "100% Padded polyester",
+        "cuidados": "Dry clean or delicate cycle.",
         "etiquetas": [
-            "básico",
-            "entretiempo",
-            "capas"
+            "basic",
+            "mid-season",
+            "layers"
         ]
     },
     {
@@ -133,21 +133,21 @@
         "img": "../back/img/cap.png",
         "categoria": "Accesories",
         "url": "../A01",
-        "descripcion": "Gorra ajustable con visera plana y logo bordado. Talla única.",
+        "descripcion": "Adjustable cap with flat brim and embroidered logo. One size.",
         "stock": false,
         "tallas": [
-            "Única"
+            "One Size"
         ],
         "colores": [
-            "Negro",
-            "Gris"
+            "Black",
+            "Gray"
         ],
-        "material": "Algodón y Poliéster",
-        "cuidados": "Limpiar con paño húmedo. No lavar a máquina.",
+        "material": "Cotton and Polyester",
+        "cuidados": "Clean with a damp cloth. Do not machine wash.",
         "etiquetas": [
-            "gorra",
-            "urbano",
-            "accesorio"
+            "cap",
+            "urban",
+            "accessory"
         ]
     },
     {
@@ -157,20 +157,20 @@
         "img": "../back/img/bag.png",
         "categoria": "Accesories",
         "url": "../A02",
-        "descripcion": "Bolso bandolera pequeño y resistente. Ideal para llevar el móvil, llaves y cartera.",
+        "descripcion": "Small and durable crossbody bag. Ideal for carrying phone, keys, and wallet.",
         "stock": true,
         "tallas": [
-            "Única"
+            "One Size"
         ],
         "colores": [
-            "Negro"
+            "Black"
         ],
-        "material": "Nylon resistente al agua",
-        "cuidados": "Limpiar con paño húmedo.",
+        "material": "Water-resistant nylon",
+        "cuidados": "Clean with a damp cloth.",
         "etiquetas": [
-            "bolso",
-            "práctico",
-            "diario"
+            "bag",
+            "practical",
+            "daily"
         ]
     },
     {
@@ -180,7 +180,7 @@
         "img": "../back/img/snikers.png",
         "categoria": "Footwear",
         "url": "../F01",
-        "descripcion": "Zapatillas de lona tipo bota en color blanco. Suela de goma vulcanizada. Estilo años 80.",
+        "descripcion": "White high-top canvas sneakers. Vulcanized rubber sole. 80s style.",
         "stock": true,
         "tallas": [
             "38",
@@ -192,12 +192,12 @@
             "44"
         ],
         "colores": [
-            "Blanco"
+            "White"
         ],
-        "material": "Lona de algodón. Suela de goma",
-        "cuidados": "Lavar a mano. Secar a la sombra.",
+        "material": "Cotton canvas. Rubber sole",
+        "cuidados": "Hand wash. Dry in the shade.",
         "etiquetas": [
-            "zapatillas",
+            "sneakers",
             "retro",
             "casual"
         ]
@@ -209,7 +209,7 @@
         "img": "../back/img/dadShoes.png",
         "categoria": "Footwear",
         "url": "../F02",
-        "descripcion": "Zapatillas deportivas de suela gruesa y diseño moderno. Muy cómodas para caminar todo el día.",
+        "descripcion": "Chunky sole sneakers with modern design. Very comfortable for walking all day.",
         "stock": false,
         "tallas": [
             "39",
@@ -219,15 +219,15 @@
             "43"
         ],
         "colores": [
-            "Gris",
-            "Blanco"
+            "Gray",
+            "White"
         ],
-        "material": "Malla transpirable y suela sintética",
-        "cuidados": "Limpiar con cepillo suave.",
+        "material": "Breathable mesh and synthetic sole",
+        "cuidados": "Clean with a soft brush.",
         "etiquetas": [
-            "deporte",
-            "tendencia",
-            "comodidad"
+            "sport",
+            "trend",
+            "comfort"
         ]
     },
     {
@@ -237,7 +237,7 @@
         "img": "../back/img/leather.png",
         "categoria": "Footwear",
         "url": "../F03",
-        "descripcion": "Botines de cuero negro sin cordones. Elegantes y resistentes al agua.",
+        "descripcion": "Black leather ankle boots without laces. Elegant and water-resistant.",
         "stock": true,
         "tallas": [
             "40",
@@ -247,13 +247,13 @@
             "44"
         ],
         "colores": [
-            "Negro"
+            "Black"
         ],
-        "material": "100% Cuero auténtico. Tacos de goma",
-        "cuidados": "Limpiar con productos especiales para cuero. Evitar exposición directa al sol al secar.",
+        "material": "100% Genuine leather. Rubber heels",
+        "cuidados": "Clean with special leather products. Avoid direct sun exposure when drying.",
         "etiquetas": [
-            "elegante",
-            "botas",
+            "elegant",
+            "boots",
             "premium"
         ]
     }

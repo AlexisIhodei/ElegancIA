@@ -1,4 +1,3 @@
-let cartBtn = document.getElementsByClassName("addCart");
 let filtersBtn = document.getElementById("btnFilters");
 let inputPromt = document.getElementById("promtInp");
 let sendBtnAi = document.getElementById("sendBtn");
@@ -275,10 +274,6 @@ document.querySelectorAll(".togglePass").forEach(btn => {
 
 actualizarNavbar();
 
-profile.addEventListener("click", () => {
-    modal.showModal();
-});
-
 cartModalBtn.addEventListener("click", () => {
     modalCart.showModal();
 });
@@ -319,7 +314,6 @@ async function cargarProductos() {
     }
 }
 
-
 async function obtenerSaludoInicial() {
     try {
         const respuesta = await fetch("../back/chat.php", {
@@ -349,6 +343,7 @@ async function obtenerSaludoInicial() {
         console.log("Error saludando al usuario", error);
     }
 }
+
 function obtenerId() {
     const location = window.location.pathname.replace(path, "");
     const partes = location.split("/").filter(p => p);
@@ -465,6 +460,7 @@ const disminuirCantidad = (index) => {
         actualizarCarrito();
     }
 }
+
 function generarTarjetaChat(productId) {
     const producto = productosGlobal.find(p => p.id == productId);
     if (!producto) {
@@ -564,7 +560,6 @@ async function enviarMensaje() {
         contentIa.innerHTML = "There was a connection error. Please try again";
     }
 }
-
 
 function generarMensaje(mensaje, sender) {
     let p = document.createElement("p");
@@ -703,17 +698,20 @@ function generarTarjetas(datos) {
         div.appendChild(h2);
         div.appendChild(p);
         div.appendChild(btn);
+
         div.addEventListener("click", (e) => {
-            if (e.target.tagName !== "Button") {
+            if (e.target.tagName !== "BUTTON") {
                 const nuevaUrl = path + producto.id;
                 history.pushState({ id: producto.id }, "", nuevaUrl);
                 renderProducto(producto.id);
             }
         });
+
         storeContent.appendChild(div);
-        actualizarEstadoBotones();
     }
+    actualizarEstadoBotones();
 }
+
 function mostrarNotificacion(mensaje) {
     const buy = document.createElement("div");
     buy.className = "buyNotification";
@@ -762,6 +760,7 @@ function actualizarEstadoBotones() {
         }
     });
 }
+
 // ========== FILTER SYSTEM ==========
 let activeFilters = {
     category: "All",

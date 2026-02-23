@@ -110,7 +110,7 @@
         "categoria": "Hoodies",
         "url": "../H05",
         "descripcion": "Washed effect hoodie with faded tone and relaxed fit.",
-        "stock": true,
+        "stock": false,
         "tallas": [
             "S",
             "M",
@@ -265,7 +265,7 @@
         "categoria": "Outerwear",
         "url": "../O05",
         "descripcion": "Street style bomber jacket with ribbed cuffs.",
-        "stock": true,
+        "stock": false,
         "tallas": [
             "S",
             "M",
@@ -416,7 +416,7 @@
         "categoria": "Accesories",
         "url": "../A05",
         "descripcion": "Comfortable cotton sport socks pack of three.",
-        "stock": true,
+        "stock": false,
         "tallas": [
             "39-42",
             "43-46"
@@ -554,7 +554,7 @@
         "categoria": "Footwear",
         "url": "../F05",
         "descripcion": "Clean minimalist sneakers perfect for daily outfits.",
-        "stock": true,
+        "stock": false,
         "tallas": [
             "38",
             "39",

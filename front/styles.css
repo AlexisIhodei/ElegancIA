@@ -494,6 +494,282 @@ main.chatClosed {
     display: none;
 }
 
+
+/*===========Product Detail===========*/
+#singleProductView {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ========== NAV DROPDOWNS ========== */
+.navDropItem {
+    position: relative;
+}
+
+.navDropTrigger {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.navDropTrigger::after {
+    content: "▾";
+    font-size: 10px;
+    opacity: 0.5;
+    transition: transform 0.2s ease;
+}
+
+.navDropItem:hover .navDropTrigger::after {
+    transform: rotate(180deg);
+}
+
+.navDropMenu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    padding: 14px;
+    min-width: 200px;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.navDropMenu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-bottom-color: #fff;
+    border-top: none;
+}
+
+.navDropItem:hover .navDropMenu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.navDropTitle {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #aaa;
+    padding: 4px 10px 8px;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.navDropMenu a {
+    display: block;
+    text-decoration: none;
+    color: #111;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: background 0.15s ease;
+}
+
+.navDropMenu a:hover {
+    background: #f5f5f5;
+    transform: none;
+}
+
+/* ========== ACTIVE FILTER BAR ITEM ========== */
+#listFilters li.activeFilterItem a,
+#listFilters li.activeFilterItem a:hover {
+    background: #000;
+    color: #fff;
+    transform: none;
+}
+
+/* ========== FILTER MODAL ========== */
+#modalFilters {
+    border: none;
+    border-radius: 24px;
+    padding: 0;
+    width: 90%;
+    max-width: 520px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    margin: auto;
+    overflow: hidden;
+    animation: filterModalIn 0.22s ease;
+}
+
+@keyframes filterModalIn {
+    from {
+        opacity: 0;
+        scale: 0.96;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+#modalFilters::backdrop {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    animation: backdropIn 0.22s ease;
+}
+
+@keyframes backdropIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#filterModalContent {
+    padding: 30px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+#filterModalContent h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.filterSection h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #888;
+    margin: 0 0 10px;
+}
+
+.filterSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.filterChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filterChip {
+    background: #f3f3f3;
+    color: #333;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterChip:hover {
+    transform: none;
+    background: #e8e8e8;
+}
+
+.filterChip.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.filterPriceRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #555;
+}
+
+.filterPriceRow input[type="range"] {
+    flex: 1;
+    appearance: none;
+    height: 4px;
+    border-radius: 4px;
+    background: #e0e0e0;
+    outline: none;
+    padding: 0;
+    border: none;
+}
+
+.filterPriceRow input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #000;
+    cursor: pointer;
+}
+
+#filterPriceLabel {
+    font-weight: 700;
+    min-width: 36px;
+    text-align: right;
+}
+
+.filterActions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 4px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.btnOutline {
+    background: transparent;
+    color: #333;
+    border: 2px solid #ddd;
+}
+
+.btnOutline:hover {
+    background: #f5f5f5;
+    transform: none;
+}
+
+#modalFilters .modalCloseX {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+}
+
+/* ========== Hamburger ========== */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.hamburger svg {
+    width: 30px;
+    height: 30px;
+    color: #000;
+}
+
 /* ========== MODAL CART ========== */
 #modalCart {
     border: none;
@@ -1882,12 +2158,34 @@ footer>div {
     nav {
         flex-direction: column;
         gap: 15px;
+        padding: 10px 20px;
         border-radius: 25px;
     }
 
+    .hamburger {
+        display: block;
+    }
+
     #listNav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 5%;
+        left: 5%;
+        width: 90%;
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        gap: 10px;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    #listNav.active {
+        display: flex;
     }
 
     #searchBar {
@@ -1896,8 +2194,21 @@ footer>div {
     }
 
     #bar {
-        width: 100%;
-        max-width: 350px;
+        width: 40px;
+        padding: 10px;
+        justify-content: center;
+    }
+
+    #bar input {
+        display: none;
+    }
+
+    #logo {
+        width: 50px;
+    }
+
+    #linLogo h1 {
+        font-size: 18px;
     }
 
     /* PRODUCT CARD */
@@ -1982,6 +2293,7 @@ footer>div {
     }
 
     #bar {
+        display: none;
         padding: 10px 15px;
     }
 
@@ -2005,7 +2317,7 @@ footer>div {
 
     /* FILTERS */
     #listFilters {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     /* CHAT INPUT */
@@ -2084,256 +2396,4 @@ footer>div {
         font-size: 14px;
         padding: 8px 15px;
     }
-}
-
-/* ========== NAV DROPDOWNS ========== */
-.navDropItem {
-    position: relative;
-}
-
-.navDropTrigger {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.navDropTrigger::after {
-    content: "▾";
-    font-size: 10px;
-    opacity: 0.5;
-    transition: transform 0.2s ease;
-}
-
-.navDropItem:hover .navDropTrigger::after {
-    transform: rotate(180deg);
-}
-
-.navDropMenu {
-    position: absolute;
-    top: calc(100% + 14px);
-    left: 50%;
-    transform: translateX(-50%) translateY(-6px);
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    padding: 14px;
-    min-width: 200px;
-    z-index: 999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.navDropMenu::before {
-    content: "";
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 8px solid transparent;
-    border-bottom-color: #fff;
-    border-top: none;
-}
-
-.navDropItem:hover .navDropMenu {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-}
-
-.navDropTitle {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #aaa;
-    padding: 4px 10px 8px;
-    margin: 0;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.navDropMenu a {
-    display: block;
-    text-decoration: none;
-    color: #111;
-    padding: 8px 10px;
-    border-radius: 10px;
-    font-size: 14px;
-    transition: background 0.15s ease;
-}
-
-.navDropMenu a:hover {
-    background: #f5f5f5;
-    transform: none;
-}
-
-/* ========== ACTIVE FILTER BAR ITEM ========== */
-#listFilters li.activeFilterItem a,
-#listFilters li.activeFilterItem a:hover {
-    background: #000;
-    color: #fff;
-    transform: none;
-}
-
-/* ========== FILTER MODAL ========== */
-#modalFilters {
-    border: none;
-    border-radius: 24px;
-    padding: 0;
-    width: 90%;
-    max-width: 520px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    margin: auto;
-    overflow: hidden;
-    animation: filterModalIn 0.22s ease;
-}
-
-@keyframes filterModalIn {
-    from {
-        opacity: 0;
-        scale: 0.96;
-    }
-
-    to {
-        opacity: 1;
-        scale: 1;
-    }
-}
-
-#modalFilters::backdrop {
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(4px);
-    animation: backdropIn 0.22s ease;
-}
-
-@keyframes backdropIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-#filterModalContent {
-    padding: 30px 28px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-#filterModalContent h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.filterSection h3 {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: #888;
-    margin: 0 0 10px;
-}
-
-.filterSection {
-    display: flex;
-    flex-direction: column;
-}
-
-.filterChips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.filterChip {
-    background: #f3f3f3;
-    color: #333;
-    border: 2px solid transparent;
-    border-radius: 50px;
-    padding: 7px 16px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.filterChip:hover {
-    transform: none;
-    background: #e8e8e8;
-}
-
-.filterChip.active {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-}
-
-.filterPriceRow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 13px;
-    color: #555;
-}
-
-.filterPriceRow input[type="range"] {
-    flex: 1;
-    appearance: none;
-    height: 4px;
-    border-radius: 4px;
-    background: #e0e0e0;
-    outline: none;
-    padding: 0;
-    border: none;
-}
-
-.filterPriceRow input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #000;
-    cursor: pointer;
-}
-
-#filterPriceLabel {
-    font-weight: 700;
-    min-width: 36px;
-    text-align: right;
-}
-
-.filterActions {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-    padding-top: 4px;
-    border-top: 1px solid #f0f0f0;
-}
-
-.btnOutline {
-    background: transparent;
-    color: #333;
-    border: 2px solid #ddd;
-}
-
-.btnOutline:hover {
-    background: #f5f5f5;
-    transform: none;
-}
-
-#modalFilters .modalCloseX {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 10;
 }

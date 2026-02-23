@@ -26,6 +26,9 @@ let modalCartClose = document.getElementById("modalCartClose");
 let modalFilters = document.getElementById("modalFilters");
 let modalFiltersClose = document.getElementById("modalFiltersClose");
 
+const hamburgerMenu = document.getElementById("hamburgerMenu");
+const listNav = document.getElementById("listNav");
+
 let cartContent = document.getElementById("cartContent");
 let cartSubtotal = document.getElementById("cartSubtotal");
 let cartIva = document.getElementById("cartIva");
@@ -81,6 +84,18 @@ function clearAuthErrors() {
         e.classList.add("hidden");
     });
 }
+
+if (hamburgerMenu) {
+    hamburgerMenu.addEventListener("click", () => {
+        listNav.classList.toggle("active");
+    });
+}
+
+document.addEventListener("click", (e) => {
+    if (!hamburgerMenu.contains(e.target) && !listNav.contains(e.target)) {
+        listNav.classList.remove("active");
+    }
+});
 
 function switchToTab(tab) {
     clearAuthErrors();
@@ -514,7 +529,7 @@ async function enviarMensaje() {
             }
         }
         contentIa.removeChild(p);
-        let mensajeIa = datos.respuesta || "No se pudo generar el mensaje";
+        let mensajeIa = datos.respuesta || "There was an error, try again later";
         generarMensaje(mensajeIa, "Bot");
 
         const pId = (datos.product_id !== null && datos.product_id !== undefined && datos.product_id !== "") ? datos.product_id : null;
@@ -546,7 +561,7 @@ async function enviarMensaje() {
     } catch (error) {
         resetChat();
         console.log("Error completo " + error);
-        contentIa.innerHTML = "No se pudo generar el mensaje";
+        contentIa.innerHTML = "There was a connection error. Please try again";
     }
 }
 
@@ -568,20 +583,26 @@ function renderProducto(id) {
 
     if (!producto) return;
 
+    const yaEnCarrito = productosCart.some(p => String(p.id) === String(producto.id));
     const tallasHTML = producto.tallas.map(t => `<button class="tag-badge">${t}</button>`).join('');
     const coloresHTML = producto.colores.join(', ');
     const etiquetasHTML = producto.etiquetas.map(e => `<span class="tag-badge outline">#${e}</span>`).join('');
 
     const stockStatus = producto.stock ? `<span class="stock-status in-stock">In stock</span>` : `<span class="stock-status out-of-stock">Out of stock</span>`;
 
-    const btnCarrito = producto.stock
-        ? `<button class="addCart" id="btnSingleCart">Add to cart</button>`
-        : `<button class="addCart disabled" disabled>Sold out</button>`;
+    let btnCarrito = "";
+    if (!producto.stock) {
+        btnCarrito = `<button class="addCart disabled" disabled>Sold out</button>`;
+    } else if (yaEnCarrito) {
+        btnCarrito = `<button class="addCart inCart" id="btnSingleCart" data-id="${producto.id}" disabled>Added to cart</button>`;
+    } else {
+        btnCarrito = `<button class="addCart" id="btnSingleCart" data-id="${producto.id}">Add to cart</button>`;
+    }
 
     const rutaImagen = `/Tienda-Allegra-con-ia${producto.img.replace('..', '')}`;
 
     storeContent.innerHTML = `
-        <div id="singleProductView" style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 20px;">
+        <div id="singleProductView">
             
             <button id="volverBtn" class="btn-small">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 20px; height: 20px;">
@@ -690,6 +711,7 @@ function generarTarjetas(datos) {
             }
         });
         storeContent.appendChild(div);
+        actualizarEstadoBotones();
     }
 }
 function mostrarNotificacion(mensaje) {
@@ -710,16 +732,24 @@ function mostrarNotificacion(mensaje) {
         }, 300);
     }, 3000);
 }
+
 function actualizarEstadoBotones() {
     const botones = document.querySelectorAll(".addCart");
 
     botones.forEach(btn => {
+        let productId;
+
         const tarjetaDiv = btn.closest(".productCart");
-        if (!tarjetaDiv) return;
+        if (tarjetaDiv) {
+            productId = tarjetaDiv.dataset.id;
+        }
+        else if (btn.id === "btnSingleCart") {
+            productId = btn.dataset.id;
+        }
 
-        const productId = tarjetaDiv.dataset.id;
+        if (!productId) return;
 
-        const yaEnCarrito = productosCart.some(p => String(p.id) === productId);
+        const yaEnCarrito = productosCart.some(p => String(p.id) === String(productId));
 
         if (yaEnCarrito) {
             btn.disabled = true;
@@ -728,7 +758,7 @@ function actualizarEstadoBotones() {
         } else {
             btn.disabled = false;
             btn.classList.remove("inCart");
-            btn.textContent = "Add to the cart";
+            btn.textContent = btn.id === "btnSingleCart" ? "Add to cart" : "Add to the cart";
         }
     });
 }

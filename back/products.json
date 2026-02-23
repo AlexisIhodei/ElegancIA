@@ -51,13 +51,118 @@
         ]
     },
     {
+        "id": "H03",
+        "nombre": "Oversize Beige Hoodie",
+        "precio": 52.00,
+        "img": "../back/img/beigeHoodie.png",
+        "categoria": "Hoodies",
+        "url": "../H03",
+        "descripcion": "Oversized hoodie in beige tone with dropped shoulders and brushed interior.",
+        "stock": true,
+        "tallas": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Beige"
+        ],
+        "material": "100% Cotton",
+        "cuidados": "Wash cold with similar colors.",
+        "etiquetas": [
+            "oversize",
+            "neutral",
+            "comfort"
+        ]
+    },
+    {
+        "id": "H04",
+        "nombre": "Zip-Up Tech Hoodie",
+        "precio": 60.00,
+        "img": "../back/img/zipHoodie.png",
+        "categoria": "Hoodies",
+        "url": "../H04",
+        "descripcion": "Full zip hoodie with technical fabric and minimalist design.",
+        "stock": true,
+        "tallas": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Black",
+            "Dark Gray"
+        ],
+        "material": "70% Cotton, 30% Polyester",
+        "cuidados": "Machine wash cold.",
+        "etiquetas": [
+            "zip",
+            "tech",
+            "minimal"
+        ]
+    },
+    {
+        "id": "H05",
+        "nombre": "Vintage Washed Hoodie",
+        "precio": 58.00,
+        "img": "../back/img/vintageHoodie.png",
+        "categoria": "Hoodies",
+        "url": "../H05",
+        "descripcion": "Washed effect hoodie with faded tone and relaxed fit.",
+        "stock": true,
+        "tallas": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Washed Black",
+            "Washed Brown"
+        ],
+        "material": "100% Cotton",
+        "cuidados": "Wash separately first time.",
+        "etiquetas": [
+            "vintage",
+            "relaxed",
+            "street"
+        ]
+    },
+    {
+        "id": "H06",
+        "nombre": "Heavyweight Winter Hoodie",
+        "precio": 68.00,
+        "img": "../back/img/heavyHoodie.png",
+        "categoria": "Hoodies",
+        "url": "../H06",
+        "descripcion": "Extra thick hoodie for cold weather with fleece lining.",
+        "stock": true,
+        "tallas": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Black",
+            "Navy"
+        ],
+        "material": "Heavyweight cotton blend",
+        "cuidados": "Wash cold. Air dry.",
+        "etiquetas": [
+            "winter",
+            "heavy",
+            "premium"
+        ]
+    },
+    {
         "id": "O01",
         "nombre": "Technical Windbreaker",
         "precio": 89.99,
         "img": "../back/img/windbreaker.png",
         "categoria": "Outerwear",
         "url": "../O01",
-        "descripcion": "Waterproof windbreaker jacket in military green. Ideal for light rain and windy days.",
+        "descripcion": "Waterproof windbreaker jacket in military green.",
         "stock": true,
         "tallas": [
             "S",
@@ -69,7 +174,7 @@
             "Military Green"
         ],
         "material": "100% Waterproof polyester",
-        "cuidados": "Machine wash on gentle cycle. Do not use bleach.",
+        "cuidados": "Machine wash gentle.",
         "etiquetas": [
             "rain",
             "outdoor",
@@ -83,7 +188,7 @@
         "img": "../back/img/jeanJacket.png",
         "categoria": "Outerwear",
         "url": "../O02",
-        "descripcion": "Vintage-style denim jacket with sherpa collar. A classic that never goes out of style.",
+        "descripcion": "Vintage-style denim jacket with sherpa collar.",
         "stock": false,
         "tallas": [
             "M",
@@ -93,8 +198,8 @@
         "colores": [
             "Washed Blue"
         ],
-        "material": "100% Cotton denim. Lining: 100% Polyester",
-        "cuidados": "Wash with dark colors. Air dry.",
+        "material": "100% Cotton denim",
+        "cuidados": "Wash with dark colors.",
         "etiquetas": [
             "vintage",
             "classic",
@@ -108,7 +213,7 @@
         "img": "../back/img/vest.png",
         "categoria": "Outerwear",
         "url": "../O03",
-        "descripcion": "Black padded vest. Perfect to layer over a hoodie during mid-season.",
+        "descripcion": "Black padded vest ideal for layering.",
         "stock": true,
         "tallas": [
             "S",
@@ -119,11 +224,90 @@
             "Black"
         ],
         "material": "100% Padded polyester",
-        "cuidados": "Dry clean or delicate cycle.",
+        "cuidados": "Dry clean recommended.",
         "etiquetas": [
             "basic",
-            "mid-season",
-            "layers"
+            "layers",
+            "mid-season"
+        ]
+    },
+    {
+        "id": "O04",
+        "nombre": "Longline Trench Coat",
+        "precio": 120.00,
+        "img": "../back/img/trench.png",
+        "categoria": "Outerwear",
+        "url": "../O04",
+        "descripcion": "Modern longline trench coat with belt.",
+        "stock": true,
+        "tallas": [
+            "S",
+            "M",
+            "L"
+        ],
+        "colores": [
+            "Sand",
+            "Black"
+        ],
+        "material": "Polyester blend",
+        "cuidados": "Dry clean only.",
+        "etiquetas": [
+            "coat",
+            "elegant",
+            "spring"
+        ]
+    },
+    {
+        "id": "O05",
+        "nombre": "Cropped Bomber Jacket",
+        "precio": 78.50,
+        "img": "../back/img/bomber.png",
+        "categoria": "Outerwear",
+        "url": "../O05",
+        "descripcion": "Street style bomber jacket with ribbed cuffs.",
+        "stock": true,
+        "tallas": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Black",
+            "Olive"
+        ],
+        "material": "100% Nylon",
+        "cuidados": "Machine wash gentle.",
+        "etiquetas": [
+            "bomber",
+            "street",
+            "urban"
+        ]
+    },
+    {
+        "id": "O06",
+        "nombre": "Wool Blend Overcoat",
+        "precio": 150.00,
+        "img": "../back/img/overcoat.png",
+        "categoria": "Outerwear",
+        "url": "../O06",
+        "descripcion": "Long wool blend overcoat with tailored fit.",
+        "stock": true,
+        "tallas": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "colores": [
+            "Charcoal",
+            "Camel"
+        ],
+        "material": "Wool blend",
+        "cuidados": "Dry clean only.",
+        "etiquetas": [
+            "premium",
+            "winter",
+            "formal"
         ]
     },
     {
@@ -133,7 +317,7 @@
         "img": "../back/img/cap.png",
         "categoria": "Accesories",
         "url": "../A01",
-        "descripcion": "Adjustable cap with flat brim and embroidered logo. One size.",
+        "descripcion": "Adjustable flat brim cap with embroidered logo.",
         "stock": false,
         "tallas": [
             "One Size"
@@ -142,8 +326,8 @@
             "Black",
             "Gray"
         ],
-        "material": "Cotton and Polyester",
-        "cuidados": "Clean with a damp cloth. Do not machine wash.",
+        "material": "Cotton & Polyester",
+        "cuidados": "Clean with damp cloth.",
         "etiquetas": [
             "cap",
             "urban",
@@ -157,7 +341,7 @@
         "img": "../back/img/bag.png",
         "categoria": "Accesories",
         "url": "../A02",
-        "descripcion": "Small and durable crossbody bag. Ideal for carrying phone, keys, and wallet.",
+        "descripcion": "Durable crossbody bag for everyday essentials.",
         "stock": true,
         "tallas": [
             "One Size"
@@ -166,11 +350,87 @@
             "Black"
         ],
         "material": "Water-resistant nylon",
-        "cuidados": "Clean with a damp cloth.",
+        "cuidados": "Wipe clean.",
         "etiquetas": [
             "bag",
-            "practical",
-            "daily"
+            "daily",
+            "practical"
+        ]
+    },
+    {
+        "id": "A03",
+        "nombre": "Minimal Leather Belt",
+        "precio": 29.99,
+        "img": "../back/img/belt.png",
+        "categoria": "Accesories",
+        "url": "../A03",
+        "descripcion": "Simple leather belt with matte buckle.",
+        "stock": true,
+        "tallas": [
+            "S",
+            "M",
+            "L"
+        ],
+        "colores": [
+            "Black",
+            "Brown"
+        ],
+        "material": "Genuine leather",
+        "cuidados": "Use leather conditioner.",
+        "etiquetas": [
+            "belt",
+            "minimal",
+            "essential"
+        ]
+    },
+    {
+        "id": "A04",
+        "nombre": "Ribbed Beanie",
+        "precio": 18.00,
+        "img": "../back/img/beanie.png",
+        "categoria": "Accesories",
+        "url": "../A04",
+        "descripcion": "Warm knit beanie for cold days.",
+        "stock": true,
+        "tallas": [
+            "One Size"
+        ],
+        "colores": [
+            "Black",
+            "Gray",
+            "Beige"
+        ],
+        "material": "Acrylic knit",
+        "cuidados": "Hand wash cold.",
+        "etiquetas": [
+            "winter",
+            "basic",
+            "knit"
+        ]
+    },
+    {
+        "id": "A05",
+        "nombre": "Sport Crew Socks (3-Pack)",
+        "precio": 15.00,
+        "img": "../back/img/socks.png",
+        "categoria": "Accesories",
+        "url": "../A05",
+        "descripcion": "Comfortable cotton sport socks pack of three.",
+        "stock": true,
+        "tallas": [
+            "39-42",
+            "43-46"
+        ],
+        "colores": [
+            "White",
+            "Black"
+        ],
+        "material": "Cotton blend",
+        "cuidados": "Machine wash warm.",
+        "etiquetas": [
+            "socks",
+            "sport",
+            "basic"
         ]
     },
     {
@@ -180,7 +440,7 @@
         "img": "../back/img/snikers.png",
         "categoria": "Footwear",
         "url": "../F01",
-        "descripcion": "White high-top canvas sneakers. Vulcanized rubber sole. 80s style.",
+        "descripcion": "White high-top canvas sneakers with rubber sole.",
         "stock": true,
         "tallas": [
             "38",
@@ -194,12 +454,12 @@
         "colores": [
             "White"
         ],
-        "material": "Cotton canvas. Rubber sole",
-        "cuidados": "Hand wash. Dry in the shade.",
+        "material": "Canvas & Rubber",
+        "cuidados": "Hand wash only.",
         "etiquetas": [
-            "sneakers",
             "retro",
-            "casual"
+            "casual",
+            "sneakers"
         ]
     },
     {
@@ -209,7 +469,7 @@
         "img": "../back/img/dadShoes.png",
         "categoria": "Footwear",
         "url": "../F02",
-        "descripcion": "Chunky sole sneakers with modern design. Very comfortable for walking all day.",
+        "descripcion": "Chunky sole sneakers with modern design.",
         "stock": false,
         "tallas": [
             "39",
@@ -222,11 +482,11 @@
             "Gray",
             "White"
         ],
-        "material": "Breathable mesh and synthetic sole",
-        "cuidados": "Clean with a soft brush.",
+        "material": "Mesh & Synthetic sole",
+        "cuidados": "Clean with soft brush.",
         "etiquetas": [
-            "sport",
             "trend",
+            "sport",
             "comfort"
         ]
     },
@@ -237,7 +497,7 @@
         "img": "../back/img/leather.png",
         "categoria": "Footwear",
         "url": "../F03",
-        "descripcion": "Black leather ankle boots without laces. Elegant and water-resistant.",
+        "descripcion": "Elegant leather ankle boots without laces.",
         "stock": true,
         "tallas": [
             "40",
@@ -249,12 +509,70 @@
         "colores": [
             "Black"
         ],
-        "material": "100% Genuine leather. Rubber heels",
-        "cuidados": "Clean with special leather products. Avoid direct sun exposure when drying.",
+        "material": "Genuine leather",
+        "cuidados": "Use leather care products.",
         "etiquetas": [
-            "elegant",
             "boots",
-            "premium"
+            "premium",
+            "elegant"
+        ]
+    },
+    {
+        "id": "F04",
+        "nombre": "Running Performance Sneakers",
+        "precio": 95.00,
+        "img": "../back/img/running.png",
+        "categoria": "Footwear",
+        "url": "../F04",
+        "descripcion": "Breathable running shoes with cushioned sole.",
+        "stock": true,
+        "tallas": [
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colores": [
+            "Black",
+            "Blue"
+        ],
+        "material": "Mesh upper, EVA sole",
+        "cuidados": "Air dry only.",
+        "etiquetas": [
+            "running",
+            "sport",
+            "performance"
+        ]
+    },
+    {
+        "id": "F05",
+        "nombre": "Minimal White Sneakers",
+        "precio": 70.00,
+        "img": "../back/img/whiteSneakers.png",
+        "categoria": "Footwear",
+        "url": "../F05",
+        "descripcion": "Clean minimalist sneakers perfect for daily outfits.",
+        "stock": true,
+        "tallas": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colores": [
+            "White"
+        ],
+        "material": "Synthetic leather",
+        "cuidados": "Wipe clean with damp cloth.",
+        "etiquetas": [
+            "minimal",
+            "daily",
+            "clean"
         ]
     }
 ]

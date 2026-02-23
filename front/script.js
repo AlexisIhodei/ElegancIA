@@ -23,6 +23,8 @@ let modal = document.getElementById("modalLogin");
 let modalCart = document.getElementById("modalCart");
 let modalClose = document.getElementById("modalClose");
 let modalCartClose = document.getElementById("modalCartClose");
+let modalFilters = document.getElementById("modalFilters");
+let modalFiltersClose = document.getElementById("modalFiltersClose");
 
 let cartContent = document.getElementById("cartContent");
 let cartSubtotal = document.getElementById("cartSubtotal");
@@ -265,9 +267,6 @@ profile.addEventListener("click", () => {
 cartModalBtn.addEventListener("click", () => {
     modalCart.showModal();
 });
-// modalClose.addEventListener("click", () => {
-//     modal.close();
-// });
 modalCartClose.addEventListener("click", () => {
     modalCart.close();
 });
@@ -569,7 +568,7 @@ function renderProducto(id) {
 
     if (!producto) return;
 
-    const tallasHTML = producto.tallas.map(t => `<span class="tag-badge">${t}</span>`).join('');
+    const tallasHTML = producto.tallas.map(t => `<button class="tag-badge">${t}</button>`).join('');
     const coloresHTML = producto.colores.join(', ');
     const etiquetasHTML = producto.etiquetas.map(e => `<span class="tag-badge outline">#${e}</span>`).join('');
 
@@ -720,7 +719,7 @@ function actualizarEstadoBotones() {
 
         const productId = tarjetaDiv.dataset.id;
 
-        const yaEnCarrito = productosCart.some(p => p.id === productId);
+        const yaEnCarrito = productosCart.some(p => String(p.id) === productId);
 
         if (yaEnCarrito) {
             btn.disabled = true;
@@ -733,3 +732,164 @@ function actualizarEstadoBotones() {
         }
     });
 }
+// ========== FILTER SYSTEM ==========
+let activeFilters = {
+    category: "All",
+    maxPrice: 120,
+    stock: "all",
+    sort: "default",
+    gender: "all"
+};
+
+allProducts.addEventListener("click", (e) => {
+    e.preventDefault();
+    setActiveFilterBtn("allProducts");
+    activeFilters.category = "All";
+    applyFilters();
+});
+hoodieBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    setActiveFilterBtn("hoodieBtn");
+    activeFilters.category = "Hoodies";
+    applyFilters();
+});
+outerBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    setActiveFilterBtn("outerBtn");
+    activeFilters.category = "Outerwear";
+    applyFilters();
+});
+accesoriesBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    setActiveFilterBtn("accesoriesBtn");
+    activeFilters.category = "Accesories";
+    applyFilters();
+});
+footwearBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    setActiveFilterBtn("footwearBtn");
+    activeFilters.category = "Footwear";
+    applyFilters();
+});
+function setActiveFilterBtn(activeId) {
+    ["allProducts", "hoodieBtn", "outerBtn", "accesoriesBtn", "footwearBtn"].forEach(id => {
+        document.getElementById(id)?.classList.remove("activeFilterItem");
+    });
+    document.getElementById(activeId)?.classList.add("activeFilterItem");
+}
+function applyFilters() {
+    let filtered = [...productosGlobal];
+    if (activeFilters.category !== "All") {
+        filtered = filtered.filter(p => p.categoria === activeFilters.category);
+    }
+    filtered = filtered.filter(p => p.precio <= activeFilters.maxPrice);
+
+    if (activeFilters.gender === "women") {
+        filtered = filtered.filter(p => p.women === true);
+    } else if (activeFilters.gender === "men") {
+        filtered = filtered.filter(p => p.women === false);
+    }
+
+    if (activeFilters.stock === "instock") {
+        filtered = filtered.filter(p => p.stock === true);
+    }
+    if (activeFilters.sort === "price-asc") {
+        filtered.sort((a, b) => a.precio - b.precio);
+    } else if (activeFilters.sort === "price-desc") {
+        filtered.sort((a, b) => b.precio - a.precio);
+    } else if (activeFilters.sort === "name") {
+        filtered.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    }
+    generarTarjetas(filtered);
+    document.querySelectorAll("#filterCategories .filterChip").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.cat === activeFilters.category);
+    });
+}
+filtersBtn.addEventListener("click", () => {
+    modalFilters.showModal();
+    syncModalToState();
+});
+modalFiltersClose.addEventListener("click", () => modalFilters.close());
+
+function syncModalToState() {
+    document.querySelectorAll("#filterCategories .filterChip").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.cat === activeFilters.category);
+    });
+    document.getElementById("filterPrice").value = activeFilters.maxPrice;
+    document.getElementById("filterPriceLabel").textContent = "$" + activeFilters.maxPrice;
+    document.querySelectorAll("[data-stock]").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.stock === activeFilters.stock);
+    });
+    document.querySelectorAll("[data-sort]").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.sort === activeFilters.sort);
+    });
+    document.querySelectorAll("[data-gender]").forEach(chip => {
+        chip.classList.toggle("active", chip.dataset.gender === activeFilters.gender);
+    });
+}
+document.querySelectorAll("#filterCategories .filterChip").forEach(chip => {
+    chip.addEventListener("click", () => {
+        document.querySelectorAll("#filterCategories .filterChip").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilters.category = chip.dataset.cat;
+    });
+});
+document.getElementById("filterPrice").addEventListener("input", (e) => {
+    activeFilters.maxPrice = Number(e.target.value);
+    document.getElementById("filterPriceLabel").textContent = "$" + e.target.value;
+});
+document.querySelectorAll("[data-stock]").forEach(chip => {
+    chip.addEventListener("click", () => {
+        document.querySelectorAll("[data-stock]").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilters.stock = chip.dataset.stock;
+    });
+});
+
+document.querySelectorAll("[data-gender]").forEach(chip => {
+    chip.addEventListener("click", () => {
+        document.querySelectorAll("[data-gender]").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilters.gender = chip.dataset.gender;
+    });
+});
+
+document.querySelectorAll("[data-sort]").forEach(chip => {
+    chip.addEventListener("click", () => {
+        document.querySelectorAll("[data-sort]").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilters.sort = chip.dataset.sort;
+    });
+});
+document.getElementById("btnApplyFilters").addEventListener("click", () => {
+    const catMap = {
+        "All": "allProducts",
+        "Hoodies": "hoodieBtn",
+        "Outerwear": "outerBtn",
+        "Accesories": "accesoriesBtn",
+        "Footwear": "footwearBtn"
+    };
+    setActiveFilterBtn(catMap[activeFilters.category] || "allProducts");
+    applyFilters();
+    modalFilters.close();
+});
+document.getElementById("btnClearFilters").addEventListener("click", () => {
+    activeFilters = { category: "All", maxPrice: 120, stock: "all", sort: "default", gender: "all" };
+    syncModalToState();
+});
+document.querySelectorAll("[data-filter-nav]").forEach(link => {
+    link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const cat = link.dataset.filterNav;
+        activeFilters.category = cat;
+        const catMap = {
+            "Hoodies": "hoodieBtn",
+            "Outerwear": "outerBtn",
+            "Accesories": "accesoriesBtn",
+            "Footwear": "footwearBtn"
+        };
+        setActiveFilterBtn(catMap[cat] || "allProducts");
+        applyFilters();
+        document.getElementById("storeContent").scrollIntoView({ behavior: "smooth" });
+    });
+});

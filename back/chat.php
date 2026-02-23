@@ -11,6 +11,10 @@ $archivoInventario = './products.json';
 $input = json_decode(file_get_contents('php://input'), true);
 $historialRecibido = $input['historial'] ?? [];
 
+if (count($historialRecibido) > 20) {
+    $historialRecibido = array_slice($historialRecibido, -20);
+}
+
 if (empty($historialRecibido)) {
     echo json_encode([
         "respuesta" => "Hola! Como puedo ayudarte hoy?",

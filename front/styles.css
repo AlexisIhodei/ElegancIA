@@ -650,33 +650,382 @@ main.chatClosed {
     background: #fff;
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 100;
 }
 
 #listFilters {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 10px;
     list-style: none;
-    padding: 15px 20px;
+    padding: 12px 20px;
+    flex-wrap: wrap;
 }
 
 #listFilters li {
-    padding: 5px 0;
+    padding: 3px 0;
+    position: relative;
 }
 
 #listFilters a {
     text-decoration: none;
-    color: #000;
-    padding: 10px 18px;
+    color: #333;
+    padding: 8px 14px;
     border-radius: 20px;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-#listFilters a:hover {
+#listFilters a:hover,
+#listFilters li.activeCategory>a {
     background: #000;
     color: #fff;
-    transform: translateY(-2px);
+}
+
+#allProducts a {
+    font-weight: 600;
+}
+
+/* ========== DROPDOWN ========== */
+
+.dropdownItem {
+    position: relative;
+}
+
+.dropdownTrigger {
+    cursor: pointer;
+    user-select: none;
+}
+
+.dropdownTrigger svg {
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.dropdownItem:hover .dropdownTrigger svg,
+.dropdownItem.open .dropdownTrigger svg {
+    transform: rotate(180deg);
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
+    width: 220px;
+    padding: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 200;
+    border: 1px solid #f0f0f0;
+}
+
+.dropdownItem:hover .dropdownMenu,
+.dropdownItem.open .dropdownMenu {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdownHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px 6px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #111;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 6px;
+}
+
+.dropdownMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdownMenu ul li {
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #444;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdownMenu ul li:hover {
+    background: #f5f5f5;
+    color: #000;
+}
+
+.dropdownFooter {
+    border-top: 1px solid #f0f0f0;
+    margin-top: 6px;
+    padding: 8px 12px 4px;
+}
+
+.dropdownFooter span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.dropdownFooter span:hover {
+    color: #000;
+}
+
+/* ========== ACTIVE FILTER INDICATOR ========== */
+
+#listFilters li.activeCategory>a {
+    background: #000;
+    color: #fff;
+}
+
+/* ========== FILTER MODAL ========== */
+
+#modalFilters {
+    border: none;
+    border-radius: 24px;
+    padding: 30px;
+    width: 520px;
+    max-width: 95vw;
+    margin: auto;
+    background: #fff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+    animation: fadeIn 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+}
+
+#modalFilters::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+#filterModalHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+#filterModalHeader h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+}
+
+#filterSections {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-height: 55vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.filterSection h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+.filterChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filterChip {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1.5px solid #e0e0e0;
+    background: #fff;
+    color: #444;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterChip:hover {
+    border-color: #000;
+    color: #000;
+    transform: translateY(-1px);
+}
+
+.filterChip.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* Price Range */
+.priceRangeWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.priceInputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.priceInput {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.priceInput label {
+    font-size: 11px;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.priceInput span {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    border: 1.5px solid #e8e8e8;
+    transition: border-color 0.2s;
+}
+
+.priceInput span:focus-within {
+    border-color: #000;
+}
+
+.priceInput input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    font-weight: 600;
+    width: 60px;
+    color: #111;
+}
+
+.priceDivider {
+    color: #ccc;
+    font-size: 18px;
+    margin-top: 18px;
+}
+
+/* Filter modal actions */
+#filterModalActions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.clearFiltersBtn {
+    flex: 1;
+    padding: 13px;
+    border-radius: 12px;
+    background: transparent;
+    border: 1.5px solid #e0e0e0;
+    color: #555;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clearFiltersBtn:hover {
+    border-color: #000;
+    color: #000;
+    transform: none;
+}
+
+.applyFiltersBtn {
+    flex: 2;
+    padding: 13px 20px;
+    border-radius: 12px;
+    background: #000;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.applyFiltersBtn:hover {
+    background: #222;
+    transform: translateY(-1px);
+}
+
+.filterCountBadge {
+    background: #fff;
+    color: #000;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filterCountBadge.hidden {
+    display: none;
+}
+
+/* Active filters indicator on the Filters button */
+#btnFilters.hasFilters {
+    background: #1a1a1a;
+    box-shadow: 0 0 0 2px #000, 0 0 0 4px rgba(0, 0, 0, 0.15);
+}
+
+/* No results message */
+#noResultsMsg {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+#noResultsMsg h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+#noResultsMsg p {
+    font-size: 14px;
 }
 
 /* Botones */
@@ -1735,4 +2084,256 @@ footer>div {
         font-size: 14px;
         padding: 8px 15px;
     }
+}
+
+/* ========== NAV DROPDOWNS ========== */
+.navDropItem {
+    position: relative;
+}
+
+.navDropTrigger {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.navDropTrigger::after {
+    content: "▾";
+    font-size: 10px;
+    opacity: 0.5;
+    transition: transform 0.2s ease;
+}
+
+.navDropItem:hover .navDropTrigger::after {
+    transform: rotate(180deg);
+}
+
+.navDropMenu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    padding: 14px;
+    min-width: 200px;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.navDropMenu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-bottom-color: #fff;
+    border-top: none;
+}
+
+.navDropItem:hover .navDropMenu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.navDropTitle {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #aaa;
+    padding: 4px 10px 8px;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.navDropMenu a {
+    display: block;
+    text-decoration: none;
+    color: #111;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: background 0.15s ease;
+}
+
+.navDropMenu a:hover {
+    background: #f5f5f5;
+    transform: none;
+}
+
+/* ========== ACTIVE FILTER BAR ITEM ========== */
+#listFilters li.activeFilterItem a,
+#listFilters li.activeFilterItem a:hover {
+    background: #000;
+    color: #fff;
+    transform: none;
+}
+
+/* ========== FILTER MODAL ========== */
+#modalFilters {
+    border: none;
+    border-radius: 24px;
+    padding: 0;
+    width: 90%;
+    max-width: 520px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    margin: auto;
+    overflow: hidden;
+    animation: filterModalIn 0.22s ease;
+}
+
+@keyframes filterModalIn {
+    from {
+        opacity: 0;
+        scale: 0.96;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+#modalFilters::backdrop {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    animation: backdropIn 0.22s ease;
+}
+
+@keyframes backdropIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#filterModalContent {
+    padding: 30px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+#filterModalContent h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.filterSection h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #888;
+    margin: 0 0 10px;
+}
+
+.filterSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.filterChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filterChip {
+    background: #f3f3f3;
+    color: #333;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterChip:hover {
+    transform: none;
+    background: #e8e8e8;
+}
+
+.filterChip.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.filterPriceRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #555;
+}
+
+.filterPriceRow input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 4px;
+    border-radius: 4px;
+    background: #e0e0e0;
+    outline: none;
+    padding: 0;
+    border: none;
+}
+
+.filterPriceRow input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #000;
+    cursor: pointer;
+}
+
+#filterPriceLabel {
+    font-weight: 700;
+    min-width: 36px;
+    text-align: right;
+}
+
+.filterActions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 4px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.btnOutline {
+    background: transparent;
+    color: #333;
+    border: 2px solid #ddd;
+}
+
+.btnOutline:hover {
+    background: #f5f5f5;
+    transform: none;
+}
+
+#modalFilters .modalCloseX {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
 }

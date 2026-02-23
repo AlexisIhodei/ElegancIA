@@ -17,10 +17,46 @@
                 <h1>Allegra</h1>
             </a>
             <ul id="listNav">
-                <li><a href="#storeContent">New arrivals</a></li>
-                <li><a href="#storeContent">Collections</a></li>
-                <li><a href="#storeContent">Women</a></li>
-                <li><a href="#storeContent">Men</a></li>
+                <li class="navDropItem">
+                    <a class="navDropTrigger">New arrivals</a>
+                    <div class="navDropMenu">
+                        <p class="navDropTitle">Just dropped</p>
+                        <a href="#storeContent" data-filter-nav="Hoodies">Hoodies</a>
+                        <a href="#storeContent" data-filter-nav="Outerwear">Outerwear</a>
+                        <a href="#storeContent" data-filter-nav="Footwear">Footwear</a>
+                        <a href="#storeContent" data-filter-nav="Accesories">Accesories</a>
+                    </div>
+                </li>
+                <li class="navDropItem">
+                    <a class="navDropTrigger">Collections</a>
+                    <div class="navDropMenu">
+                        <p class="navDropTitle">Our collections</p>
+                        <a href="#storeContent" data-filter-nav="Hoodies">Essential Basics</a>
+                        <a href="#storeContent" data-filter-nav="Outerwear">Urban Outerwear</a>
+                        <a href="#storeContent" data-filter-nav="Footwear">Street Footwear</a>
+                        <a href="#storeContent" data-filter-nav="Accesories">Daily Accesories</a>
+                    </div>
+                </li>
+                <li class="navDropItem">
+                    <a class="navDropTrigger">Women</a>
+                    <div class="navDropMenu">
+                        <p class="navDropTitle">Women's picks</p>
+                        <a href="#storeContent" data-filter-nav="Hoodies">Hoodies</a>
+                        <a href="#storeContent" data-filter-nav="Outerwear">Jackets & Vests</a>
+                        <a href="#storeContent" data-filter-nav="Accesories">Bags & Caps</a>
+                        <a href="#storeContent" data-filter-nav="Footwear">Sneakers & Boots</a>
+                    </div>
+                </li>
+                <li class="navDropItem">
+                    <a class="navDropTrigger">Men</a>
+                    <div class="navDropMenu">
+                        <p class="navDropTitle">Men's picks</p>
+                        <a href="#storeContent" data-filter-nav="Hoodies">Hoodies</a>
+                        <a href="#storeContent" data-filter-nav="Outerwear">Windbreakers & Denim</a>
+                        <a href="#storeContent" data-filter-nav="Footwear">Sneakers & Boots</a>
+                        <a href="#storeContent" data-filter-nav="Accesories">Bags & Caps</a>
+                    </div>
+                </li>
             </ul>
             <div id="searchBar">
                 <span id="bar">
@@ -198,6 +234,68 @@
                     stroke="currentColor" width="24" height="24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>Close</button>
+        </dialog>
+
+        <dialog id="modalFilters">
+            <button id="modalFiltersClose" class="modalCloseX" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" width="20" height="20">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div id="filterModalContent">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="22" height="22">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+                    </svg>
+                    Filters
+                </h2>
+
+                <div class="filterSection">
+                    <h3>Category</h3>
+                    <div class="filterChips" id="filterCategories">
+                        <button class="filterChip active" data-cat="All">All</button>
+                        <button class="filterChip" data-cat="Hoodies">Hoodies</button>
+                        <button class="filterChip" data-cat="Outerwear">Outerwear</button>
+                        <button class="filterChip" data-cat="Accesories">Accesories</button>
+                        <button class="filterChip" data-cat="Footwear">Footwear</button>
+                    </div>
+                </div>
+
+                <div class="filterSection">
+                    <h3>Price range</h3>
+                    <div class="filterPriceRow">
+                        <span>$0</span>
+                        <input type="range" id="filterPrice" min="0" max="120" value="120" step="5">
+                        <span id="filterPriceLabel">$120</span>
+                    </div>
+                </div>
+
+                <div class="filterSection">
+                    <h3>Availability</h3>
+                    <div class="filterChips">
+                        <button class="filterChip active" data-stock="all">All</button>
+                        <button class="filterChip" data-stock="instock">In stock only</button>
+                    </div>
+                </div>
+
+                <div class="filterSection">
+                    <h3>Sort by</h3>
+                    <div class="filterChips">
+                        <button class="filterChip active" data-sort="default">Default</button>
+                        <button class="filterChip" data-sort="price-asc">Price: Low → High</button>
+                        <button class="filterChip" data-sort="price-desc">Price: High → Low</button>
+                        <button class="filterChip" data-sort="name">Name A–Z</button>
+                    </div>
+                </div>
+
+                <div class="filterActions">
+                    <button id="btnClearFilters" class="btnOutline">Clear filters</button>
+                    <button id="btnApplyFilters">Apply filters</button>
+                </div>
+            </div>
         </dialog>
     </header>
 

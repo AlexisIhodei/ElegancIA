@@ -17,15 +17,15 @@ if (count($historialRecibido) > 20) {
 
 if (empty($historialRecibido)) {
     echo json_encode([
-        "respuesta" => "Hola! Como puedo ayudarte hoy?",
+        "respuesta" => "Hi! How can I help you today?",
         "lista" => null,
-        "product_id" => null
+        "product_id" => null,
+        "agregar_al_carrito" => false
     ]);
     exit;
 }
 
 $jsonProductos = file_exists($archivoInventario) ? file_get_contents($archivoInventario) : "[]";
-$inventario = json_decode($jsonProductos, true) ?? [];
 
 $mensajeSistema = [
     "role" => "system",
@@ -35,12 +35,12 @@ Eres un asistente de ventas para una tienda online.
 Tu inventario disponible es este JSON EXACTO:
 $jsonProductos
 
-Debes responder SIEMPRE con un único JSON válido con esta estrucutra exacta:
+Debes responder SIEMPRE con un único JSON válido con esta estructura exacta:
 
 {
   \"respuesta\": \"string\",
   \"lista\": [\"string\",...] o null,
-  \"product_id\": numero o null,
+  \"product_id\": string o null,
   \"agregar_al_carrito\": booleano
 }
 
@@ -53,13 +53,11 @@ Reglas ESTRICTAS:
 - 'respuesta' es un texto corto para el usuario.
 - 'lista' debe contener NOMBRES EXACTOS de los productos recomendados. Si no hay lista, usa null.
 - NO inventes productos que no estén en el JSON.
-- Lo UNICO que puedes inventar es horarios, lugares donde se encuentra la tienda, cuantos empleados tenemos, envios y costos de envio, colores del producto que tengan relacion con el producto.
-- 'product_id': si el usuario pide VER o MOSTRAR un producto específico, DEBES poner su ID EXACTO (tal cual aparece en el JSON). Si no es un producto específico, usa null.
-- agregar_al_carrito': Si el usuario te pide explícitamente COMPRAR, AÑADIR o METER AL CARRO un producto en específico, pon true y asegúrate de poner el 'product_id' correcto del producto. Si no, pon false.
+- Lo ÚNICO que puedes inventar es horarios, lugares donde se encuentra la tienda, cuántos empleados tenemos, envíos y costos de envío, colores del producto que tengan relación con el producto.
+- 'product_id': si el usuario pide VER o MOSTRAR un producto específico, DEBES poner su ID EXACTO tal cual aparece en el JSON (por ejemplo \"H01\", \"F03\"). Si no es un producto específico, usa null.
+- 'agregar_al_carrito': Si el usuario te pide explícitamente COMPRAR, AÑADIR o METER AL CARRO un producto específico, pon true y asegúrate de poner el 'product_id' correcto del producto. Si no, pon false.
 - NO envíes HTML ni texto fuera del JSON.
-- NO agregues texto fuera del JSON.
-- NO HTML ni etiquetas.
-- Ajusta la respuesta según la intención del usuario: 
+- Ajusta la respuesta según la intención del usuario:
    - Si pregunta algo general → 'lista' null
    - Si pide recomendaciones → rellena 'lista' con productos del inventario
 "
@@ -89,9 +87,10 @@ $respuestaHttp = file_get_contents('https://api.groq.com/openai/v1/chat/completi
 
 if ($respuestaHttp === FALSE) {
     echo json_encode([
-        "respuesta" => "Error de conexión con la IA. Intenta de nuevo.",
+        "respuesta" => "Connection error with AI. Please try again.",
         "lista" => null,
-        "product_id" => null
+        "product_id" => null,
+        "agregar_al_carrito" => false
     ]);
     exit;
 }
@@ -100,9 +99,10 @@ $datos = json_decode($respuestaHttp, true);
 
 if (!isset($datos['choices'][0]['message']['content'])) {
     echo json_encode([
-        "respuesta" => "No se recibió respuesta de la IA.",
+        "respuesta" => "No response received from AI.",
         "lista" => null,
-        "product_id" => null
+        "product_id" => null,
+        "agregar_al_carrito" => false
     ]);
     exit;
 }
@@ -131,15 +131,16 @@ if (!$jsonLimpio) {
 }
 
 if (!$jsonLimpio) {
-    $textoSeguro = mb_substr(strip_tags($textoFinal), 0, 500);
+    $textoSeguro = mb_strimwidth(strip_tags($textoFinal), 0, 500, "");
     $jsonLimpio = [
-        "respuesta" => $textoSeguro ?: "No se pudo procesar la respuesta.",
+        "respuesta" => $textoSeguro ?: "Could not process the response.",
         "lista" => null,
-        "product_id" => null
+        "product_id" => null,
+        "agregar_al_carrito" => false
     ];
 }
 
-$respuesta = isset($jsonLimpio['respuesta']) ? (string) $jsonLimpio['respuesta'] : "Sin respuesta.";
+$respuesta = isset($jsonLimpio['respuesta']) ? (string) $jsonLimpio['respuesta'] : "No response.";
 $lista = isset($jsonLimpio['lista']) && is_array($jsonLimpio['lista']) ? $jsonLimpio['lista'] : null;
 $product_id = isset($jsonLimpio['product_id']) ? $jsonLimpio['product_id'] : null;
 $agregar_al_carrito = isset($jsonLimpio['agregar_al_carrito']) ? (bool) $jsonLimpio['agregar_al_carrito'] : false;

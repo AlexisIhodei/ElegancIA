@@ -5,7 +5,6 @@
         "precio": 45.00,
         "img": "../back/img/hoodie.png",
         "categoria": "Hoodies",
-        "url": "../H01",
         "descripcion": "Basic black hoodie. Heavyweight cotton, soft fleece interior. Oversize fit perfect for everyday wear.",
         "stock": true,
         "tallas": [
@@ -56,7 +55,6 @@
         "precio": 52.00,
         "img": "../back/img/beigeHoodie.png",
         "categoria": "Hoodies",
-        "url": "../H03",
         "descripcion": "Oversized hoodie in beige tone with dropped shoulders and brushed interior.",
         "stock": true,
         "tallas": [
@@ -82,7 +80,6 @@
         "precio": 60.00,
         "img": "../back/img/zipHoodie.png",
         "categoria": "Hoodies",
-        "url": "../H04",
         "descripcion": "Full zip hoodie with technical fabric and minimalist design.",
         "stock": true,
         "tallas": [
@@ -108,9 +105,8 @@
         "precio": 58.00,
         "img": "../back/img/vintageHoodie.png",
         "categoria": "Hoodies",
-        "url": "../H05",
         "descripcion": "Washed effect hoodie with faded tone and relaxed fit.",
-        "stock": true,
+        "stock": false,
         "tallas": [
             "S",
             "M",
@@ -135,7 +131,6 @@
         "precio": 68.00,
         "img": "../back/img/heavyHoodie.png",
         "categoria": "Hoodies",
-        "url": "../H06",
         "descripcion": "Extra thick hoodie for cold weather with fleece lining.",
         "stock": true,
         "tallas": [
@@ -161,7 +156,6 @@
         "precio": 89.99,
         "img": "../back/img/windbreaker.png",
         "categoria": "Outerwear",
-        "url": "../O01",
         "descripcion": "Waterproof windbreaker jacket in military green.",
         "stock": true,
         "tallas": [
@@ -187,7 +181,6 @@
         "precio": 65.00,
         "img": "../back/img/jeanJacket.png",
         "categoria": "Outerwear",
-        "url": "../O02",
         "descripcion": "Vintage-style denim jacket with sherpa collar.",
         "stock": false,
         "tallas": [
@@ -212,7 +205,6 @@
         "precio": 49.90,
         "img": "../back/img/vest.png",
         "categoria": "Outerwear",
-        "url": "../O03",
         "descripcion": "Black padded vest ideal for layering.",
         "stock": true,
         "tallas": [
@@ -237,7 +229,6 @@
         "precio": 120.00,
         "img": "../back/img/trench.png",
         "categoria": "Outerwear",
-        "url": "../O04",
         "descripcion": "Modern longline trench coat with belt.",
         "stock": true,
         "tallas": [
@@ -263,9 +254,8 @@
         "precio": 78.50,
         "img": "../back/img/bomber.png",
         "categoria": "Outerwear",
-        "url": "../O05",
         "descripcion": "Street style bomber jacket with ribbed cuffs.",
-        "stock": true,
+        "stock": false,
         "tallas": [
             "S",
             "M",
@@ -290,7 +280,6 @@
         "precio": 150.00,
         "img": "../back/img/overcoat.png",
         "categoria": "Outerwear",
-        "url": "../O06",
         "descripcion": "Long wool blend overcoat with tailored fit.",
         "stock": true,
         "tallas": [
@@ -315,8 +304,7 @@
         "nombre": "Urban Snapback Cap",
         "precio": 25.00,
         "img": "../back/img/cap.png",
-        "categoria": "Accesories",
-        "url": "../A01",
+        "categoria": "Accessories",
         "descripcion": "Adjustable flat brim cap with embroidered logo.",
         "stock": false,
         "tallas": [
@@ -339,8 +327,7 @@
         "nombre": "Crossbody Bag",
         "precio": 35.00,
         "img": "../back/img/bag.png",
-        "categoria": "Accesories",
-        "url": "../A02",
+        "categoria": "Accessories",
         "descripcion": "Durable crossbody bag for everyday essentials.",
         "stock": true,
         "tallas": [
@@ -362,8 +349,7 @@
         "nombre": "Minimal Leather Belt",
         "precio": 29.99,
         "img": "../back/img/belt.png",
-        "categoria": "Accesories",
-        "url": "../A03",
+        "categoria": "Accessories",
         "descripcion": "Simple leather belt with matte buckle.",
         "stock": true,
         "tallas": [
@@ -388,8 +374,7 @@
         "nombre": "Ribbed Beanie",
         "precio": 18.00,
         "img": "../back/img/beanie.png",
-        "categoria": "Accesories",
-        "url": "../A04",
+        "categoria": "Accessories",
         "descripcion": "Warm knit beanie for cold days.",
         "stock": true,
         "tallas": [
@@ -413,10 +398,9 @@
         "nombre": "Sport Crew Socks (3-Pack)",
         "precio": 15.00,
         "img": "../back/img/socks.png",
-        "categoria": "Accesories",
-        "url": "../A05",
+        "categoria": "Accessories",
         "descripcion": "Comfortable cotton sport socks pack of three.",
-        "stock": true,
+        "stock": false,
         "tallas": [
             "39-42",
             "43-46"
@@ -439,7 +423,6 @@
         "precio": 75.00,
         "img": "../back/img/snikers.png",
         "categoria": "Footwear",
-        "url": "../F01",
         "descripcion": "White high-top canvas sneakers with rubber sole.",
         "stock": true,
         "tallas": [
@@ -468,7 +451,6 @@
         "precio": 90.00,
         "img": "../back/img/dadShoes.png",
         "categoria": "Footwear",
-        "url": "../F02",
         "descripcion": "Chunky sole sneakers with modern design.",
         "stock": false,
         "tallas": [
@@ -496,7 +478,6 @@
         "precio": 110.00,
         "img": "../back/img/leather.png",
         "categoria": "Footwear",
-        "url": "../F03",
         "descripcion": "Elegant leather ankle boots without laces.",
         "stock": true,
         "tallas": [
@@ -523,7 +504,6 @@
         "precio": 95.00,
         "img": "../back/img/running.png",
         "categoria": "Footwear",
-        "url": "../F04",
         "descripcion": "Breathable running shoes with cushioned sole.",
         "stock": true,
         "tallas": [
@@ -552,9 +532,8 @@
         "precio": 70.00,
         "img": "../back/img/whiteSneakers.png",
         "categoria": "Footwear",
-        "url": "../F05",
         "descripcion": "Clean minimalist sneakers perfect for daily outfits.",
-        "stock": true,
+        "stock": false,
         "tallas": [
             "38",
             "39",

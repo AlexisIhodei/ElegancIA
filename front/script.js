@@ -1,4 +1,3 @@
-let cartBtn = document.getElementsByClassName("addCart");
 let filtersBtn = document.getElementById("btnFilters");
 let inputPromt = document.getElementById("promtInp");
 let sendBtnAi = document.getElementById("sendBtn");
@@ -26,6 +25,9 @@ let modalCartClose = document.getElementById("modalCartClose");
 let modalFilters = document.getElementById("modalFilters");
 let modalFiltersClose = document.getElementById("modalFiltersClose");
 
+const hamburgerMenu = document.getElementById("hamburgerMenu");
+const listNav = document.getElementById("listNav");
+
 let cartContent = document.getElementById("cartContent");
 let cartSubtotal = document.getElementById("cartSubtotal");
 let cartIva = document.getElementById("cartIva");
@@ -35,11 +37,12 @@ let cartBadge = document.getElementById("cartBadge");
 let historialConversacion = [];
 let productosGlobal = [];
 let productosCart = [];
+let productosCargados = false;
 
-const path = "/Tienda-Allegra-con-ia/front/";
+const path = "/ElegancIA/front/";
 
-const AUTH_KEY = "allegra_users";
-const SESSION_KEY = "allegra_session";
+const AUTH_KEY = "elegancIA_users";
+const SESSION_KEY = "elegancIA_session";
 
 function getUsers() {
     return JSON.parse(localStorage.getItem(AUTH_KEY) || "[]");
@@ -81,6 +84,52 @@ function clearAuthErrors() {
         e.classList.add("hidden");
     });
 }
+
+const mobileNavOverlay = document.getElementById("mobileNavOverlay");
+const mobileNavClose = document.getElementById("mobileNavClose");
+
+function openMobileNav() {
+    listNav.classList.add("active");
+    mobileNavOverlay.classList.add("active");
+    mobileNavClose.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+
+function closeMobileNav() {
+    listNav.classList.remove("active");
+    mobileNavOverlay.classList.remove("active");
+    mobileNavClose.classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+if (hamburgerMenu) {
+    hamburgerMenu.addEventListener("click", () => {
+        if (listNav.classList.contains("active")) {
+            closeMobileNav();
+        } else {
+            openMobileNav();
+        }
+    });
+}
+
+mobileNavClose.addEventListener("click", closeMobileNav);
+mobileNavOverlay.addEventListener("click", closeMobileNav);
+
+document.querySelectorAll(".navDropTrigger").forEach(trigger => {
+    trigger.addEventListener("click", () => {
+        if (window.innerWidth > 768) return;
+        const item = trigger.closest(".navDropItem");
+        const isOpen = item.classList.contains("mobileOpen");
+        document.querySelectorAll(".navDropItem").forEach(i => i.classList.remove("mobileOpen"));
+        if (!isOpen) item.classList.add("mobileOpen");
+    });
+});
+
+document.querySelectorAll("[data-filter-nav]").forEach(link => {
+    link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) closeMobileNav();
+    });
+});
 
 function switchToTab(tab) {
     clearAuthErrors();
@@ -211,7 +260,7 @@ function handleRegister() {
     saveSession(newUser);
     actualizarNavbar();
     modal.close();
-    mostrarNotificacion("Welcome to Allegra, " + name.split(" ")[0] + "!");
+    mostrarNotificacion("Welcome to ElegancIA, " + name.split(" ")[0] + "!");
 }
 
 function handleLogout() {
@@ -260,15 +309,49 @@ document.querySelectorAll(".togglePass").forEach(btn => {
 
 actualizarNavbar();
 
-profile.addEventListener("click", () => {
-    modal.showModal();
-});
-
 cartModalBtn.addEventListener("click", () => {
+    actualizarCarrito();
     modalCart.showModal();
 });
 modalCartClose.addEventListener("click", () => {
     modalCart.close();
+});
+
+document.getElementById("checkoutBtn").addEventListener("click", () => {
+    if (productosCart.length === 0) {
+        mostrarNotificacion("Your cart is empty.");
+        return;
+    }
+    mostrarNotificacion("Thank you for your purchase!");
+    productosCart = [];
+    actualizarCarrito();
+    modalCart.close();
+});
+
+document.getElementById("newsletterBtn").addEventListener("click", () => {
+    const input = document.getElementById("newsletterEmail");
+    const email = input.value.trim();
+    if (!email || !email.includes("@")) {
+        mostrarNotificacion("Please enter a valid email.");
+        return;
+    }
+    mostrarNotificacion("Thanks for subscribing!");
+    input.value = "";
+});
+
+document.getElementById("busqueda").addEventListener("input", (e) => {
+    const query = e.target.value.trim().toLowerCase();
+    if (!productosCargados) return;
+    if (!query) {
+        applyFilters();
+        return;
+    }
+    const filtered = productosGlobal.filter(p =>
+        p.nombre.toLowerCase().includes(query) ||
+        p.categoria.toLowerCase().includes(query) ||
+        (p.etiquetas && p.etiquetas.some(t => t.toLowerCase().includes(query)))
+    );
+    generarTarjetas(filtered);
 });
 
 sendBtnAi.addEventListener("click", enviarMensaje);
@@ -282,12 +365,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-btnIa.addEventListener("click", () => {
-    if (chatBox.style.display === "grid") {
-        chatBox.style.display = "none";
+btnAi.addEventListener("click", () => {
+    const isOpen = chatBox.classList.contains("chatOpen");
+    if (isOpen) {
+        chatBox.classList.remove("chatOpen");
         main.classList.add("chatClosed");
     } else {
-        chatBox.style.display = "grid";
+        chatBox.classList.add("chatOpen");
         main.classList.remove("chatClosed");
     }
 });
@@ -297,13 +381,13 @@ async function cargarProductos() {
         const respuesta = await fetch("../back/products.json");
         const datos = await respuesta.json();
         productosGlobal = datos;
+        productosCargados = true;
         generarTarjetas(datos);
         return datos;
     } catch (error) {
-        console.log("Error cargando los datos ");
+        console.error("Error cargando los datos:", error);
     }
 }
-
 
 async function obtenerSaludoInicial() {
     try {
@@ -331,16 +415,19 @@ async function obtenerSaludoInicial() {
             content: datos.respuesta
         });
     } catch (error) {
-        console.log("Error saludando al usuario", error);
+        console.error("Error saludando al usuario:", error);
     }
 }
+
 function obtenerId() {
-    const location = window.location.pathname.replace(path, "");
-    const partes = location.split("/").filter(p => p);
+    const pathname = window.location.pathname;
+    if (!pathname.startsWith(path)) return null;
+    const rest = pathname.replace(path, "");
+    const partes = rest.split("/").filter(p => p);
     return partes.length > 0 ? partes[0] : null;
 }
 
-window.addEventListener("popstate", (event) => {
+window.addEventListener("popstate", () => {
     const id = obtenerId();
     if (id) {
         renderProducto(id);
@@ -357,13 +444,13 @@ inputPromt.addEventListener("keydown", function (event) {
 });
 
 function resetChat() {
-    contentIa.innerHTML = " ";
+    contentIa.innerHTML = "";
 }
 
 clearChatBtn.addEventListener("click", () => {
     resetChat();
     historialConversacion = [];
-    generarMensaje("Chat reiniciado.", "Bot");
+    generarMensaje("Chat cleared.", "Bot");
 });
 
 function actualizarCarrito() {
@@ -382,16 +469,16 @@ function actualizarCarrito() {
         miniCard.className = "cartItem";
 
         miniCard.innerHTML = `
-            <img src="/Tienda-Allegra-con-ia${producto.img}" alt="${producto.nombre}">
+            <img src="/ElegancIA${producto.img}" alt="${producto.nombre}">
             <div class="cartItemInfo">
                 <h4>${producto.nombre}</h4>
                 <p>$${producto.precio.toFixed(2)}</p>
             </div>
             <div class="cartQuantity">
-                    <button class="qtyBtn" onclick="disminuirCantidad(${index})">-</button>
-                    <span>${producto.cantidad}</span>
-                    <button class="qtyBtn" onclick="aumentarCantidad(${index})">+</button>
-                </div>
+                <button class="qtyBtn" onclick="disminuirCantidad(${index})">-</button>
+                <span>${producto.cantidad}</span>
+                <button class="qtyBtn" onclick="aumentarCantidad(${index})">+</button>
+            </div>
         `;
 
         const removeBtn = document.createElement("button");
@@ -419,6 +506,7 @@ function actualizarCarrito() {
         `;
         cartContent.appendChild(emptyMsg);
     }
+
     const iva = subTotal * 0.16;
     const total = subTotal + iva;
 
@@ -428,7 +516,7 @@ function actualizarCarrito() {
 
     if (cartBadge) {
         cartBadge.textContent = totalArticulos;
-        if (productosCart.length > 0) {
+        if (totalArticulos > 0) {
             cartBadge.classList.remove("hidden");
         } else {
             cartBadge.classList.add("hidden");
@@ -450,10 +538,11 @@ const disminuirCantidad = (index) => {
         actualizarCarrito();
     }
 }
+
 function generarTarjetaChat(productId) {
     const producto = productosGlobal.find(p => p.id == productId);
     if (!producto) {
-        console.error("El backend envió el ID:", productId, "pero no se encontró en productosGlobal.");
+        console.error("Backend sent ID:", productId, "but it was not found in productosGlobal.");
         return;
     }
 
@@ -461,10 +550,10 @@ function generarTarjetaChat(productId) {
     card.className = "chatMiniCard messageBot";
 
     card.innerHTML = `
-        <img src="/Tienda-Allegra-con-ia${producto.img}" />
+        <img src="/ElegancIA${producto.img}" />
         <div class="chatMiniText">
             <span class="chatMiniTitle">${producto.nombre}</span>
-            <span class="chatMiniPrice">$${producto.precio}</span>
+            <span class="chatMiniPrice">$${producto.precio.toFixed(2)}</span>
         </div>
     `;
 
@@ -485,10 +574,12 @@ async function enviarMensaje() {
 
     generarMensaje(mensaje, "User");
     historialConversacion.push({ role: "user", content: mensaje });
-    const p = document.createElement("p");
-    p.className = "loadingDots";
-    p.innerHTML = "......";
-    contentIa.appendChild(p);
+
+    const loadingEl = document.createElement("p");
+    loadingEl.className = "loadingDots";
+    loadingEl.innerHTML = "......";
+    contentIa.appendChild(loadingEl);
+    contentIa.scrollTop = contentIa.scrollHeight;
 
     try {
         const respuesta = await fetch("../back/chat.php", {
@@ -496,25 +587,30 @@ async function enviarMensaje() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ historial: historialConversacion })
         });
+
         if (!respuesta.ok) {
-            const errorText = document.createElement("p");
-            errorText.innerHTML = "Error en la peticion";
-            contentIa.appendChild(errorText);
-            throw new Error("Error en la peticion");
-        };
-        const text = await respuesta.text();
-        console.log("datos " + text);
-        const datos = JSON.parse(text);
+            throw new Error("HTTP error: " + respuesta.status);
+        }
+
+        const datos = await respuesta.json();
+
         if (datos.agregar_al_carrito && datos.product_id) {
             const productoaAgregar = productosGlobal.find(p => p.id == datos.product_id);
             if (productoaAgregar) {
-                productosCart.push(productoaAgregar);
-                actualizarCarrito();
-                mostrarNotificacion(`¡IA added the product ${productoaAgregar.nombre} to your cart!`);
+                const yaExiste = productosCart.some(p => String(p.id) === String(productoaAgregar.id));
+                if (!yaExiste) {
+                    productosCart.push(productoaAgregar);
+                    actualizarCarrito();
+                    mostrarNotificacion(`AI added ${productoaAgregar.nombre} to your cart!`);
+                }
             }
         }
-        contentIa.removeChild(p);
-        let mensajeIa = datos.respuesta || "No se pudo generar el mensaje";
+
+        if (contentIa.contains(loadingEl)) {
+            contentIa.removeChild(loadingEl);
+        }
+
+        let mensajeIa = datos.respuesta || "There was an error, try again later.";
         generarMensaje(mensajeIa, "Bot");
 
         const pId = (datos.product_id !== null && datos.product_id !== undefined && datos.product_id !== "") ? datos.product_id : null;
@@ -543,20 +639,22 @@ async function enviarMensaje() {
             role: "assistant",
             content: datos.respuesta
         });
+
     } catch (error) {
-        resetChat();
-        console.log("Error completo " + error);
-        contentIa.innerHTML = "No se pudo generar el mensaje";
+        if (contentIa.contains(loadingEl)) {
+            contentIa.removeChild(loadingEl);
+        }
+        console.error("Error en enviarMensaje:", error);
+        generarMensaje("There was a connection error. Please try again.", "Bot");
     }
 }
-
 
 function generarMensaje(mensaje, sender) {
     let p = document.createElement("p");
     p.className = `message${sender}`;
     const id = Date.now();
     p.id = id;
-    p.innerHTML = `${mensaje}`;
+    p.innerHTML = mensaje;
     contentIa.appendChild(p);
     contentIa.scrollTop = contentIa.scrollHeight;
     return id;
@@ -564,86 +662,90 @@ function generarMensaje(mensaje, sender) {
 
 function renderProducto(id) {
     const producto = productosGlobal.find(p => p.id == id);
-    document.title = producto ? producto.nombre : "Allegra - Tienda";
+    document.title = producto ? producto.nombre : "ElegancIA";
 
     if (!producto) return;
 
+    const yaEnCarrito = productosCart.some(p => String(p.id) === String(producto.id));
     const tallasHTML = producto.tallas.map(t => `<button class="tag-badge">${t}</button>`).join('');
     const coloresHTML = producto.colores.join(', ');
     const etiquetasHTML = producto.etiquetas.map(e => `<span class="tag-badge outline">#${e}</span>`).join('');
 
-    const stockStatus = producto.stock ? `<span class="stock-status in-stock">In stock</span>` : `<span class="stock-status out-of-stock">Out of stock</span>`;
+    const stockStatus = producto.stock
+        ? `<span class="stock-status in-stock">In stock</span>`
+        : `<span class="stock-status out-of-stock">Out of stock</span>`;
 
-    const btnCarrito = producto.stock
-        ? `<button class="addCart" id="btnSingleCart">Add to cart</button>`
-        : `<button class="addCart disabled" disabled>Sold out</button>`;
+    let btnCarrito = "";
+    if (!producto.stock) {
+        btnCarrito = `<button class="addCart disabled" disabled>Sold out</button>`;
+    } else if (yaEnCarrito) {
+        btnCarrito = `<button class="addCart inCart" id="btnSingleCart" data-id="${producto.id}" disabled>Added to cart</button>`;
+    } else {
+        btnCarrito = `<button class="addCart" id="btnSingleCart" data-id="${producto.id}">Add to cart</button>`;
+    }
 
-    const rutaImagen = `/Tienda-Allegra-con-ia${producto.img.replace('..', '')}`;
+    const rutaImagen = `/ElegancIA${producto.img.replace('..', '')}`;
 
     storeContent.innerHTML = `
-        <div id="singleProductView" style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 20px;">
-            
+        <div id="singleProductView">
             <button id="volverBtn" class="btn-small">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 20px; height: 20px;">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                 </svg>
                 Go back to the store
             </button>
-            
             <div class="productDetailCard">
                 <div class="productDetailImg">
                     <img src="${rutaImagen}" alt="${producto.nombre}"/>
                 </div>
-                
                 <div class="productDetailInfo">
                     <div class="header-info">
                         <span class="category-tag">${producto.categoria}</span>
                         ${stockStatus}
                     </div>
-                    
                     <h2>${producto.nombre}</h2>
                     <p class="price">$${producto.precio.toFixed(2)}</p>
                     <p class="desc">${producto.descripcion}</p>
-                    
                     <div class="extra-info">
                         <div class="info-row">
-                            <strong>Sizes:</strong> 
+                            <strong>Sizes:</strong>
                             <div class="tags-container">${tallasHTML}</div>
                         </div>
                         <p><strong>Colors:</strong> ${coloresHTML}</p>
                         <p><strong>Material:</strong> ${producto.material}</p>
-                        <p><strong>Care Intructions:</strong> ${producto.cuidados}</p>
+                        <p><strong>Care Instructions:</strong> ${producto.cuidados}</p>
                     </div>
-
                     <div class="tags-container" style="margin-top: 10px;">
                         ${etiquetasHTML}
                     </div>
-
                     ${btnCarrito}
                 </div>
             </div>
-            
         </div>
     `;
-    const volverBtn = document.getElementById("volverBtn");
-    volverBtn.addEventListener("click", (e) => {
+
+    document.getElementById("volverBtn").addEventListener("click", (e) => {
         e.preventDefault();
         history.replaceState({}, "", path);
         renderTienda();
     });
+
     const btnSingleCart = document.getElementById("btnSingleCart");
     if (btnSingleCart) {
         btnSingleCart.addEventListener("click", () => {
-            productosCart.push(producto);
-            mostrarNotificacion(`¡${producto.nombre} added to your cart!`);
-            actualizarCarrito();
+            const yaExiste = productosCart.some(p => String(p.id) === String(producto.id));
+            if (!yaExiste) {
+                productosCart.push(producto);
+                mostrarNotificacion(`${producto.nombre} added to your cart!`);
+                actualizarCarrito();
+            }
         });
     }
 }
 
 function renderTienda() {
-    document.title = "Allegra";
-    generarTarjetas(productosGlobal);
+    document.title = "ElegancIA";
+    applyFilters();
 }
 
 function generarTarjetas(datos) {
@@ -656,42 +758,53 @@ function generarTarjetas(datos) {
         div.dataset.id = producto.id;
 
         const img = document.createElement("img");
-        img.src = `/Tienda-Allegra-con-ia` + producto.img;
+        img.src = `/ElegancIA` + producto.img;
+        img.alt = producto.nombre;
 
         const h2 = document.createElement("h2");
         h2.innerHTML = producto.nombre;
 
         const p = document.createElement("p");
-        p.textContent = "$" + producto.precio;
+        p.textContent = "$" + producto.precio.toFixed(2);
 
         const btn = document.createElement("button");
         btn.classList.add("addCart");
-        btn.textContent = "Add to the cart";
 
-        btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const yaExiste = productosCart.some(p => p.id === producto.id);
-            if (!yaExiste) {
-                productosCart.push(producto);
-                mostrarNotificacion(`¡${producto.nombre} added to your cart!`);
-                actualizarCarrito();
-            }
-        });
+        if (!producto.stock) {
+            btn.textContent = "Sold out";
+            btn.disabled = true;
+            btn.classList.add("disabled");
+        } else {
+            btn.textContent = "Add to cart";
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const yaExiste = productosCart.some(p => p.id === producto.id);
+                if (!yaExiste) {
+                    productosCart.push(producto);
+                    mostrarNotificacion(`${producto.nombre} added to your cart!`);
+                    actualizarCarrito();
+                }
+            });
+        }
 
         div.appendChild(img);
         div.appendChild(h2);
         div.appendChild(p);
         div.appendChild(btn);
+
         div.addEventListener("click", (e) => {
-            if (e.target.tagName !== "Button") {
+            if (e.target.tagName !== "BUTTON") {
                 const nuevaUrl = path + producto.id;
                 history.pushState({ id: producto.id }, "", nuevaUrl);
                 renderProducto(producto.id);
             }
         });
+
         storeContent.appendChild(div);
     }
+    actualizarEstadoBotones();
 }
+
 function mostrarNotificacion(mensaje) {
     const buy = document.createElement("div");
     buy.className = "buyNotification";
@@ -710,16 +823,26 @@ function mostrarNotificacion(mensaje) {
         }, 300);
     }, 3000);
 }
+
 function actualizarEstadoBotones() {
     const botones = document.querySelectorAll(".addCart");
 
     botones.forEach(btn => {
+        let productId;
+
         const tarjetaDiv = btn.closest(".productCart");
-        if (!tarjetaDiv) return;
+        if (tarjetaDiv) {
+            productId = tarjetaDiv.dataset.id;
+        } else if (btn.id === "btnSingleCart") {
+            productId = btn.dataset.id;
+        }
 
-        const productId = tarjetaDiv.dataset.id;
+        if (!productId) return;
 
-        const yaEnCarrito = productosCart.some(p => String(p.id) === productId);
+        const producto = productosGlobal.find(p => String(p.id) === String(productId));
+        if (producto && !producto.stock) return;
+
+        const yaEnCarrito = productosCart.some(p => String(p.id) === String(productId));
 
         if (yaEnCarrito) {
             btn.disabled = true;
@@ -728,17 +851,16 @@ function actualizarEstadoBotones() {
         } else {
             btn.disabled = false;
             btn.classList.remove("inCart");
-            btn.textContent = "Add to the cart";
+            btn.textContent = btn.id === "btnSingleCart" ? "Add to cart" : "Add to cart";
         }
     });
 }
-// ========== FILTER SYSTEM ==========
+
 let activeFilters = {
     category: "All",
-    maxPrice: 120,
+    maxPrice: 150,
     stock: "all",
-    sort: "default",
-    gender: "all"
+    sort: "default"
 };
 
 allProducts.addEventListener("click", (e) => {
@@ -762,7 +884,7 @@ outerBtn.addEventListener("click", (e) => {
 accesoriesBtn.addEventListener("click", (e) => {
     e.preventDefault();
     setActiveFilterBtn("accesoriesBtn");
-    activeFilters.category = "Accesories";
+    activeFilters.category = "Accessories";
     applyFilters();
 });
 footwearBtn.addEventListener("click", (e) => {
@@ -771,25 +893,21 @@ footwearBtn.addEventListener("click", (e) => {
     activeFilters.category = "Footwear";
     applyFilters();
 });
+
 function setActiveFilterBtn(activeId) {
     ["allProducts", "hoodieBtn", "outerBtn", "accesoriesBtn", "footwearBtn"].forEach(id => {
         document.getElementById(id)?.classList.remove("activeFilterItem");
     });
     document.getElementById(activeId)?.classList.add("activeFilterItem");
 }
+
 function applyFilters() {
+    if (!productosCargados) return;
     let filtered = [...productosGlobal];
     if (activeFilters.category !== "All") {
         filtered = filtered.filter(p => p.categoria === activeFilters.category);
     }
     filtered = filtered.filter(p => p.precio <= activeFilters.maxPrice);
-
-    if (activeFilters.gender === "women") {
-        filtered = filtered.filter(p => p.women === true);
-    } else if (activeFilters.gender === "men") {
-        filtered = filtered.filter(p => p.women === false);
-    }
-
     if (activeFilters.stock === "instock") {
         filtered = filtered.filter(p => p.stock === true);
     }
@@ -805,6 +923,7 @@ function applyFilters() {
         chip.classList.toggle("active", chip.dataset.cat === activeFilters.category);
     });
 }
+
 filtersBtn.addEventListener("click", () => {
     modalFilters.showModal();
     syncModalToState();
@@ -823,10 +942,8 @@ function syncModalToState() {
     document.querySelectorAll("[data-sort]").forEach(chip => {
         chip.classList.toggle("active", chip.dataset.sort === activeFilters.sort);
     });
-    document.querySelectorAll("[data-gender]").forEach(chip => {
-        chip.classList.toggle("active", chip.dataset.gender === activeFilters.gender);
-    });
 }
+
 document.querySelectorAll("#filterCategories .filterChip").forEach(chip => {
     chip.addEventListener("click", () => {
         document.querySelectorAll("#filterCategories .filterChip").forEach(c => c.classList.remove("active"));
@@ -834,23 +951,17 @@ document.querySelectorAll("#filterCategories .filterChip").forEach(chip => {
         activeFilters.category = chip.dataset.cat;
     });
 });
+
 document.getElementById("filterPrice").addEventListener("input", (e) => {
     activeFilters.maxPrice = Number(e.target.value);
     document.getElementById("filterPriceLabel").textContent = "$" + e.target.value;
 });
+
 document.querySelectorAll("[data-stock]").forEach(chip => {
     chip.addEventListener("click", () => {
         document.querySelectorAll("[data-stock]").forEach(c => c.classList.remove("active"));
         chip.classList.add("active");
         activeFilters.stock = chip.dataset.stock;
-    });
-});
-
-document.querySelectorAll("[data-gender]").forEach(chip => {
-    chip.addEventListener("click", () => {
-        document.querySelectorAll("[data-gender]").forEach(c => c.classList.remove("active"));
-        chip.classList.add("active");
-        activeFilters.gender = chip.dataset.gender;
     });
 });
 
@@ -861,22 +972,25 @@ document.querySelectorAll("[data-sort]").forEach(chip => {
         activeFilters.sort = chip.dataset.sort;
     });
 });
+
 document.getElementById("btnApplyFilters").addEventListener("click", () => {
     const catMap = {
         "All": "allProducts",
         "Hoodies": "hoodieBtn",
         "Outerwear": "outerBtn",
-        "Accesories": "accesoriesBtn",
+        "Accessories": "accesoriesBtn",
         "Footwear": "footwearBtn"
     };
     setActiveFilterBtn(catMap[activeFilters.category] || "allProducts");
     applyFilters();
     modalFilters.close();
 });
+
 document.getElementById("btnClearFilters").addEventListener("click", () => {
-    activeFilters = { category: "All", maxPrice: 120, stock: "all", sort: "default", gender: "all" };
+    activeFilters = { category: "All", maxPrice: 150, stock: "all", sort: "default" };
     syncModalToState();
 });
+
 document.querySelectorAll("[data-filter-nav]").forEach(link => {
     link.addEventListener("click", (e) => {
         e.preventDefault();
@@ -885,11 +999,12 @@ document.querySelectorAll("[data-filter-nav]").forEach(link => {
         const catMap = {
             "Hoodies": "hoodieBtn",
             "Outerwear": "outerBtn",
-            "Accesories": "accesoriesBtn",
+            "Accessories": "accesoriesBtn",
             "Footwear": "footwearBtn"
         };
         setActiveFilterBtn(catMap[cat] || "allProducts");
         applyFilters();
         document.getElementById("storeContent").scrollIntoView({ behavior: "smooth" });
+        closeMobileNav();
     });
 });

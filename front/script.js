@@ -36,10 +36,10 @@ let historialConversacion = [];
 let productosGlobal = [];
 let productosCart = [];
 
-const path = "/Tienda-Allegra-con-ia/front/";
+const path = "/ElegancIA/front/";
 
-const AUTH_KEY = "allegra_users";
-const SESSION_KEY = "allegra_session";
+const AUTH_KEY = "elegancIA_users";
+const SESSION_KEY = "elegancIA_session";
 
 function getUsers() {
     return JSON.parse(localStorage.getItem(AUTH_KEY) || "[]");
@@ -211,7 +211,7 @@ function handleRegister() {
     saveSession(newUser);
     actualizarNavbar();
     modal.close();
-    mostrarNotificacion("Welcome to Allegra, " + name.split(" ")[0] + "!");
+    mostrarNotificacion("Welcome to ElegancIA, " + name.split(" ")[0] + "!");
 }
 
 function handleLogout() {
@@ -382,7 +382,7 @@ function actualizarCarrito() {
         miniCard.className = "cartItem";
 
         miniCard.innerHTML = `
-            <img src="/Tienda-Allegra-con-ia${producto.img}" alt="${producto.nombre}">
+            <img src="/ElegancIA${producto.img}" alt="${producto.nombre}">
             <div class="cartItemInfo">
                 <h4>${producto.nombre}</h4>
                 <p>$${producto.precio.toFixed(2)}</p>
@@ -461,7 +461,7 @@ function generarTarjetaChat(productId) {
     card.className = "chatMiniCard messageBot";
 
     card.innerHTML = `
-        <img src="/Tienda-Allegra-con-ia${producto.img}" />
+        <img src="/ElegancIA${producto.img}" />
         <div class="chatMiniText">
             <span class="chatMiniTitle">${producto.nombre}</span>
             <span class="chatMiniPrice">$${producto.precio}</span>
@@ -564,7 +564,7 @@ function generarMensaje(mensaje, sender) {
 
 function renderProducto(id) {
     const producto = productosGlobal.find(p => p.id == id);
-    document.title = producto ? producto.nombre : "Allegra - Tienda";
+    document.title = producto ? producto.nombre : "ElegancIA - Tienda";
 
     if (!producto) return;
 
@@ -578,7 +578,7 @@ function renderProducto(id) {
         ? `<button class="addCart" id="btnSingleCart">Add to cart</button>`
         : `<button class="addCart disabled" disabled>Sold out</button>`;
 
-    const rutaImagen = `/Tienda-Allegra-con-ia${producto.img.replace('..', '')}`;
+    const rutaImagen = `/ElegancIA${producto.img.replace('..', '')}`;
 
     storeContent.innerHTML = `
         <div id="singleProductView" style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 20px;">
@@ -642,7 +642,7 @@ function renderProducto(id) {
 }
 
 function renderTienda() {
-    document.title = "Allegra";
+    document.title = "ElegancIA";
     generarTarjetas(productosGlobal);
 }
 
@@ -656,7 +656,7 @@ function generarTarjetas(datos) {
         div.dataset.id = producto.id;
 
         const img = document.createElement("img");
-        img.src = `/Tienda-Allegra-con-ia` + producto.img;
+        img.src = `/ElegancIA` + producto.img;
 
         const h2 = document.createElement("h2");
         h2.innerHTML = producto.nombre;

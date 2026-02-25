@@ -16,6 +16,15 @@
                 <img src="./assets/logo.png" id="logo" alt="Logo de ElegancIA">
                 <h1>ElegancIA</h1>
             </a>
+            <span id="bar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+                <input type="text" name="busqueda" id="busqueda" placeholder="Search products...">
+            </span>
+            <div id="mobileNavOverlay"></div>
             <ul id="listNav">
                 <li class="navDropItem">
                     <a class="navDropTrigger">New arrivals</a>
@@ -24,7 +33,7 @@
                         <a href="#storeContent" data-filter-nav="Hoodies">Hoodies</a>
                         <a href="#storeContent" data-filter-nav="Outerwear">Outerwear</a>
                         <a href="#storeContent" data-filter-nav="Footwear">Footwear</a>
-                        <a href="#storeContent" data-filter-nav="Accesories">Accesories</a>
+                        <a href="#storeContent" data-filter-nav="Accessories">Accessories</a>
                     </div>
                 </li>
                 <li class="navDropItem">
@@ -34,7 +43,7 @@
                         <a href="#storeContent" data-filter-nav="Hoodies">Essential Basics</a>
                         <a href="#storeContent" data-filter-nav="Outerwear">Urban Outerwear</a>
                         <a href="#storeContent" data-filter-nav="Footwear">Street Footwear</a>
-                        <a href="#storeContent" data-filter-nav="Accesories">Daily Accesories</a>
+                        <a href="#storeContent" data-filter-nav="Accessories">Daily Accessories</a>
                     </div>
                 </li>
                 <li class="navDropItem">
@@ -43,7 +52,7 @@
                         <p class="navDropTitle">Women's picks</p>
                         <a href="#storeContent" data-filter-nav="Hoodies">Hoodies</a>
                         <a href="#storeContent" data-filter-nav="Outerwear">Jackets & Vests</a>
-                        <a href="#storeContent" data-filter-nav="Accesories">Bags & Caps</a>
+                        <a href="#storeContent" data-filter-nav="Accessories">Bags & Caps</a>
                         <a href="#storeContent" data-filter-nav="Footwear">Sneakers & Boots</a>
                     </div>
                 </li>
@@ -54,19 +63,19 @@
                         <a href="#storeContent" data-filter-nav="Hoodies">Hoodies</a>
                         <a href="#storeContent" data-filter-nav="Outerwear">Windbreakers & Denim</a>
                         <a href="#storeContent" data-filter-nav="Footwear">Sneakers & Boots</a>
-                        <a href="#storeContent" data-filter-nav="Accesories">Bags & Caps</a>
+                        <a href="#storeContent" data-filter-nav="Accessories">Bags & Caps</a>
                     </div>
                 </li>
             </ul>
             <div id="searchBar">
-                <span id="bar">
+                <button id="hamburgerMenu" class="hamburger">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6">
+                        stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
-                    <input type="text" name="busqueda" id="busqueda">
-                </span>
+                </button>
+
                 <a id="cartBtn">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
@@ -219,21 +228,20 @@
                 <img src="./assets/logo.png" alt="Logo of the store">
                 <h2>Cart</h2>
             </div>
-            <div id="cartContent">
-                <!-- Añadir productos dinamicamente -->
-            </div>
-
+            <div id="cartContent"></div>
             <div class="cartSummary">
                 <p><span>Subtotal:</span> <span id="cartSubtotal">$0.00</span></p>
                 <p><span>IVA (16%):</span> <span id="cartIva">$0.00</span></p>
                 <h3><span>Total:</span> <span id="cartTotal">$0.00</span></h3>
-                <button class="checkoutBtn">Proceed with the payment</button>
+                <button class="checkoutBtn" id="checkoutBtn">Proceed with the payment</button>
             </div>
             <button id="modalCartClose">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" width="24" height="24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>Close</button>
+                </svg>
+                Close
+            </button>
         </dialog>
 
         <dialog id="modalFilters">
@@ -259,7 +267,7 @@
                         <button class="filterChip active" data-cat="All">All</button>
                         <button class="filterChip" data-cat="Hoodies">Hoodies</button>
                         <button class="filterChip" data-cat="Outerwear">Outerwear</button>
-                        <button class="filterChip" data-cat="Accesories">Accesories</button>
+                        <button class="filterChip" data-cat="Accessories">Accessories</button>
                         <button class="filterChip" data-cat="Footwear">Footwear</button>
                     </div>
                 </div>
@@ -268,8 +276,8 @@
                     <h3>Price range</h3>
                     <div class="filterPriceRow">
                         <span>$0</span>
-                        <input type="range" id="filterPrice" min="0" max="120" value="120" step="5">
-                        <span id="filterPriceLabel">$120</span>
+                        <input type="range" id="filterPrice" min="0" max="150" value="150" step="5">
+                        <span id="filterPriceLabel">$150</span>
                     </div>
                 </div>
 
@@ -306,7 +314,7 @@
                     <li id="allProducts"><a href="#">All products</a></li>
                     <li id="hoodieBtn"><a href="#">Hoodies</a></li>
                     <li id="outerBtn"><a href="#">Outerwear</a></li>
-                    <li id="accesoriesBtn"><a href="#">Accesories</a></li>
+                    <li id="accesoriesBtn"><a href="#">Accessories</a></li>
                     <li id="footwearBtn"><a href="#">Footwear</a></li>
                     <li>
                         <button id="btnFilters">
@@ -326,12 +334,9 @@
                         </button>
                     </li>
                 </ul>
-
             </div>
 
-            <div id="storeContent">
-                <!-- Tarjetas creadas dinamicamente -->
-            </div>
+            <div id="storeContent"></div>
         </section>
 
         <aside id="chatBox">
@@ -340,8 +345,7 @@
                 <h3>ElegancIA</h3>
             </div>
 
-            <div id="contentIa">
-            </div>
+            <div id="contentIa"></div>
 
             <div id="searchInp">
                 <button id="deleteChat">
@@ -350,7 +354,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                     </svg>
-
                 </button>
                 <input type="text" name="promt" id="promtInp">
                 <button id="sendBtn">
@@ -368,13 +371,12 @@
         <div id="contentFooter">
             <h3>ElegancIA</h3>
             <p>Discover a space where fashion comes to life and every garment tells a story. Our clothing store is more
-                than just a place to shop: it’s a meeting point for those looking to express their style with
+                than just a place to shop: it's a meeting point for those looking to express their style with
                 authenticity, confidence, and personality.</p>
             <ul id="links">
-                <li><a href="https://web.whatsapp.com"><img src="./assets/whats.png" alt=""></a></li>
-                <li><a href="https://www.instagram.com
-"><img src="./assets/ig.png" alt=""></a></li>
-                <li><a href="https://x.com/"><img src="./assets/x.png" alt=""></a></li>
+                <li><a href="https://web.whatsapp.com"><img src="./assets/whats.png" alt="WhatsApp"></a></li>
+                <li><a href="https://www.instagram.com"><img src="./assets/ig.png" alt="Instagram"></a></li>
+                <li><a href="https://x.com/"><img src="./assets/x.png" alt="X"></a></li>
             </ul>
             <p>© 2026 ElegancIA Fashion. All rights reserved</p>
         </div>
@@ -395,14 +397,22 @@
                 <div class="shopFooter">
                     <h2>Newsletter</h2>
                     <p>Join us</p>
-                    <input type="email" name="email" id="email" placeholder="Contact us">
-                    <button>Join</button>
+                    <input type="email" name="newsletterEmail" id="newsletterEmail" placeholder="your@email.com">
+                    <button id="newsletterBtn">Join</button>
                 </div>
             </div>
         </div>
     </footer>
+
+    <div id="mobileNavOverlay"></div>
+    <button id="mobileNavClose" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+            width="20" height="20">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+
     <script src="./script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
 </body>
 
 </html>

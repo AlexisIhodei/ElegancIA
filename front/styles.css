@@ -1687,42 +1687,145 @@ footer>div {
     }
 }
 
+
+#mobileNavOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1999;
+    backdrop-filter: blur(2px);
+}
+
+#mobileNavOverlay.active {
+    display: block;
+}
+
+#mobileNavClose {
+    display: none;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: #f3f3f3;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #555;
+    z-index: 2001;
+    padding: 0;
+}
+
+#mobileNavClose:hover {
+    background: #e0e0e0;
+    color: #000;
+    transform: none;
+}
+
+#mobileNavClose.active {
+    display: flex;
+}
+
 @media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 15px;
-        padding: 10px 20px;
-        border-radius: 25px;
-    }
-
     .hamburger {
-        display: block;
-    }
-
-    #listNav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 80px;
-        left: 5%;
-        width: 90%;
-        background: white;
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    #listNav.active {
         display: flex;
     }
 
-    #searchBar {
+    #listNav {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 280px;
+        height: 100vh;
+        background: #fff;
+        padding: 60px 20px 30px;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.12);
+        z-index: 2000;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 4px;
+        overflow-y: auto;
+        transition: right 0.3s ease;
+        display: flex;
+    }
+
+    #listNav.active {
+        right: 0;
+    }
+
+    .navDropItem {
         width: 100%;
-        justify-content: center;
+    }
+
+    .navDropTrigger {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 15px;
+        color: #111;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .navDropTrigger:hover {
+        background: #f5f5f5;
+        transform: none;
+    }
+
+    .navDropItem.mobileOpen .navDropTrigger::after {
+        transform: rotate(180deg);
+    }
+
+    .navDropMenu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        pointer-events: auto;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        min-width: unset;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        background: transparent;
+        border-left: 2px solid #f0f0f0;
+        margin: 4px 0 8px 14px;
+    }
+
+    .navDropMenu::before {
+        display: none;
+    }
+
+    .navDropItem.mobileOpen .navDropMenu {
+        display: flex;
+    }
+
+    .navDropMenu a {
+        padding: 9px 10px;
+        font-size: 14px;
+        color: #444;
+        border-radius: 8px;
+    }
+
+    .navDropMenu a:hover {
+        background: #f5f5f5;
+        color: #000;
+        transform: none;
+    }
+
+    .navDropTitle {
+        font-size: 9px;
+        padding: 6px 10px 4px;
+        color: #bbb;
     }
 
     #bar {
@@ -1799,21 +1902,35 @@ footer>div {
 }
 
 @media (max-width: 480px) {
+    header {
+        padding: 12px;
+    }
+
+    nav {
+        width: 100%;
+        padding: 10px 14px;
+        border-radius: 20px;
+    }
+
+    #linkLogo h1 {
+        font-size: 16px;
+    }
+
     #logo {
-        width: 60px;
-    }
-
-    #listNav {
-        font-size: 13px;
-        gap: 8px;
-    }
-
-    #listNav a {
-        padding: 6px 10px;
+        width: 36px;
     }
 
     #bar {
         display: none;
+    }
+
+    #searchBar {
+        gap: 6px;
+    }
+
+    #searchBar a>svg {
+        width: 28px;
+        height: 28px;
     }
 
     #storeContent {

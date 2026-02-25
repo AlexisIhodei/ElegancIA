@@ -85,16 +85,50 @@ function clearAuthErrors() {
     });
 }
 
+const mobileNavOverlay = document.getElementById("mobileNavOverlay");
+const mobileNavClose = document.getElementById("mobileNavClose");
+
+function openMobileNav() {
+    listNav.classList.add("active");
+    mobileNavOverlay.classList.add("active");
+    mobileNavClose.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+
+function closeMobileNav() {
+    listNav.classList.remove("active");
+    mobileNavOverlay.classList.remove("active");
+    mobileNavClose.classList.remove("active");
+    document.body.style.overflow = "";
+}
+
 if (hamburgerMenu) {
     hamburgerMenu.addEventListener("click", () => {
-        listNav.classList.toggle("active");
+        if (listNav.classList.contains("active")) {
+            closeMobileNav();
+        } else {
+            openMobileNav();
+        }
     });
 }
 
-document.addEventListener("click", (e) => {
-    if (!hamburgerMenu.contains(e.target) && !listNav.contains(e.target)) {
-        listNav.classList.remove("active");
-    }
+mobileNavClose.addEventListener("click", closeMobileNav);
+mobileNavOverlay.addEventListener("click", closeMobileNav);
+
+document.querySelectorAll(".navDropTrigger").forEach(trigger => {
+    trigger.addEventListener("click", () => {
+        if (window.innerWidth > 768) return;
+        const item = trigger.closest(".navDropItem");
+        const isOpen = item.classList.contains("mobileOpen");
+        document.querySelectorAll(".navDropItem").forEach(i => i.classList.remove("mobileOpen"));
+        if (!isOpen) item.classList.add("mobileOpen");
+    });
+});
+
+document.querySelectorAll("[data-filter-nav]").forEach(link => {
+    link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) closeMobileNav();
+    });
 });
 
 function switchToTab(tab) {
@@ -276,6 +310,7 @@ document.querySelectorAll(".togglePass").forEach(btn => {
 actualizarNavbar();
 
 cartModalBtn.addEventListener("click", () => {
+    actualizarCarrito();
     modalCart.showModal();
 });
 modalCartClose.addEventListener("click", () => {
@@ -970,5 +1005,6 @@ document.querySelectorAll("[data-filter-nav]").forEach(link => {
         setActiveFilterBtn(catMap[cat] || "allProducts");
         applyFilters();
         document.getElementById("storeContent").scrollIntoView({ behavior: "smooth" });
+        closeMobileNav();
     });
 });

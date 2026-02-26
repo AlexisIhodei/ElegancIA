@@ -10,6 +10,7 @@ Tienda de ropa online con asistente de ventas impulsado por IA. Permite explorar
 ├── front/
 │   ├── index.html
 │   ├── script.js
+│   ├── .htaccess
 │   ├── styles.css
 │   └── assets/
 │       ├── logo.png
@@ -61,6 +62,7 @@ Tienda de ropa online con asistente de ventas impulsado por IA. Permite explorar
 - Servidor con soporte PHP
 - Acceso a internet desde el servidor (para llamadas a la API de Groq)
 - API key de [Groq](https://console.groq.com)
+- XAMP como servidor local
 
 
 
@@ -72,7 +74,10 @@ Tienda de ropa online con asistente de ventas impulsado por IA. Permite explorar
 
 Y editar directamente despues de la línea 10 añadiendo la API KEY en `back/chat.php`:
 
-3. Apuntar al servidor web a la carpeta `front/` como raíz pública, o ajustar las rutas relativas (`../back/`)
+3. Tener instalado XAMP como servidor local
+
+4. Apuntar al servidor web a la carpeta `localhost/ElegancIA/front/` como raíz pública en htdocs de XAMP, o ajustar las rutas relativas (`../back/`), si es necesario
+
 
 
 

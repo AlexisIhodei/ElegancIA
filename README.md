@@ -76,7 +76,7 @@ Y editar directamente despues de la línea 10 añadiendo la API KEY en `back/cha
 
 3. Tener instalado XAMP como servidor local
 
-4. Apuntar al servidor web a la carpeta `localhost/ElegancIA/front/` como raíz pública en htdocs de XAMP, o ajustar las rutas relativas (`../back/`), si es necesario
+4. Añadir la carpeta del proyecto en htdocs y abrir en el navegador `locahost/ElegancIA/front` 
 
 
 
